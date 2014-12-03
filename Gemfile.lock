@@ -190,7 +190,7 @@ DEPENDENCIES
   rails (= 4.1.1)
   rails_best_practices
   rspec-rails
-  rubocop (~> 0.23)
+  rubocop
   rubocop-rspec
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

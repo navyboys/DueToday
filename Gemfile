@@ -27,7 +27,7 @@ end
 
 group :development, :test do
   gem 'pry'
-  gem 'rubocop', '~> 0.23', require: false
+  gem 'rubocop', require: false
   gem 'rubocop-rspec'
   gem 'rails_best_practices'
   gem 'rspec-rails'
