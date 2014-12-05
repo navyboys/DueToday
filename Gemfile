@@ -8,8 +8,9 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
-gem 'bootstrap-sass', '~> 3.2.0'
-gem 'bootstrap-form'
+gem 'bootstrap-sass', '~> 3.3.1'
+gem 'autoprefixer-rails'
+gem 'bootstrap_form'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'haml'
 
@@ -32,4 +33,6 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'rails_best_practices'
   gem 'rspec-rails'
+  gem 'fabrication'
+  gem 'faker'
 end
