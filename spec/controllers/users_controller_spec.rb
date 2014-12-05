@@ -10,14 +10,32 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'POST create' do
     context 'with valid input' do
-      it 'creates the user'
-      it 'redirects to sign in page'
+      before { post :create, user: Fabricate.attributes_for(:user) }
+
+      it 'assigns @user' do
+        expect(assigns(:user)).to be_instance_of(User)
+      end
+
+      it 'creates the user' do
+        expect(User.count).to eq(1)
+      end
+
+      it 'redirects to sign in page' do
+        expect(response).to redirect_to sign_in_path
+      end
     end
 
     context 'with invalid input' do
-      it 'does not create the user'
-      it 'render the :new template'
-      it 'sets @user'
+      before { post :create, user: { password: 'password' } }
+
+      it 'does not create the user' do
+        expect(User.count).to eq(0)
+      end
+
+      it 'render the :new template' do
+        expect(response).to render_template :new
+      end
+
     end
   end
 end

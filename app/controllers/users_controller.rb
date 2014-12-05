@@ -4,5 +4,12 @@ class UsersController < ApplicationController
   end
 
   def create
+    params.permit!
+    @user = User.new(params[:user])
+    if @user.save
+      redirect_to sign_in_path
+    else
+      render :new
+    end
   end
 end
