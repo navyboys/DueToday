@@ -1,0 +1,6 @@
+= render 'shared/content_title', title: 'Sign In'
+.well
+  = bootstrap_form_for do |f|
+    = f.email_field :email
+    = f.password_field :password
+    = f.submit 'Sign In'

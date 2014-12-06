@@ -34,7 +34,7 @@ GEM
     autoprefixer-rails (4.0.1.1)
       execjs
     awesome_print (1.2.0)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.2)
     bootstrap-sass (3.3.1.0)
       sass (~> 3.2)
     bootstrap_form (2.2.0)
@@ -189,7 +189,7 @@ PLATFORMS
 
 DEPENDENCIES
   autoprefixer-rails
-  bcrypt-ruby (= 3.0.1)
+  bcrypt-ruby (= 3.1.2)
   bootstrap-sass (~> 3.3.1)
   bootstrap_form
   coffee-rails (~> 4.0.0)

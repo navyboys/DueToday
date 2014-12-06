@@ -35,7 +35,6 @@ RSpec.describe UsersController, type: :controller do
       it 'render the :new template' do
         expect(response).to render_template :new
       end
-
     end
   end
 end
