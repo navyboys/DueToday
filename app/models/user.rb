@@ -3,5 +3,7 @@ class User < ActiveRecord::Base
   validates :password, presence: true
   validates :nick_name, presence: true
 
+  has_many :todos
+
   has_secure_password
 end
