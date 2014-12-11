@@ -1,0 +1,4 @@
+= render 'shared/content_title', title: "Todos for Today"
+%ul
+  - current_user.todos_today.each do |todo|
+    %li todo.name

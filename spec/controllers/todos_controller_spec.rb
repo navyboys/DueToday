@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe TodosController, type: :controller do
   describe 'GET index_today' do
-    it 'sets @todos_today to todos due to today of the logged in user'
-    it 'requires sign in'
+    it_behaves_like "requires sign in" do
+      let(:action) { get :index_today }
+    end
   end
 
   describe 'POST create' do

@@ -1,4 +1,6 @@
 class TodosController < ApplicationController
-  def today
+  before_filter :require_user
+
+  def index_today
   end
 end
