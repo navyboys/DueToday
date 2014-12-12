@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TodosController, type: :controller do
   describe 'GET index_today' do
-    it_behaves_like "requires sign in" do
+    it_behaves_like 'requires sign in' do
       let(:action) { get :index_today }
     end
   end

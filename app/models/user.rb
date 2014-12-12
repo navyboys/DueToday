@@ -8,6 +8,6 @@ class User < ActiveRecord::Base
   has_secure_password
 
   def todos_today
-    self.todos.where(due: Date.today)
+    todos.where(due: Date.today)
   end
 end

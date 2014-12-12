@@ -8,12 +8,12 @@ RSpec.describe User, type: :model do
 
   it { should have_many(:todos) }
 
-  describe "#todos_today" do
+  describe '#todos_today' do
     let(:navy) { Fabricate(:user) }
 
     it 'returns all todos due to today assigned for the user' do
-      todo1 = Fabricate(:todo, user: navy)
-      todo2 = Fabricate(:todo, user: navy)
+      Fabricate(:todo, user: navy)
+      Fabricate(:todo, user: navy)
       expect(navy.todos_today.count).to eq(2)
     end
 
