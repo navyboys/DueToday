@@ -23,3 +23,6 @@ Style/Documentation:
 
 Metrics/AbcSize:
   Max: 20
+
+Style/AccessorMethodName:
+  Enabled: false
