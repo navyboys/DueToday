@@ -64,8 +64,6 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe 'GET index_previous_day' do
-    it 'sets @todos_previous_day to todos due to the previous day of the logged in user'
-
     it_behaves_like 'requires sign in' do
       let(:action) { get :index_today }
     end
