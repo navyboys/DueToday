@@ -43,8 +43,20 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe 'DELETE destroy' do
-    it 'redirects to original page: index_today or index_previous_day'
-    it 'deletes the todo'
+    before do
+      set_current_user
+      request.env['HTTP_REFERER'] = todos_today_path
+      todo = Fabricate(:todo)
+      delete :destroy, id: todo.id
+    end
+
+    it 'redirects to original page' do
+      expect(response).to redirect_to todos_today_path
+    end
+
+    it 'deletes the todo' do
+      expect(Todo.count).to eq(0)
+    end
 
     it_behaves_like 'requires sign in' do
       let(:action) { get :index_today }

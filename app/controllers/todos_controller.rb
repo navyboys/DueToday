@@ -6,16 +6,14 @@ class TodosController < ApplicationController
 
   def create
     @todo = current_user.todos.build(todo_params)
-
-    if @todo.save
-      redirect_to 'todos/today'
-    else
-      flash[:error] = 'Input title please.'
-      redirect_to 'todos/today'
-    end
+    flash[:error] = 'Input title please.' unless @todo.save
+    redirect_to todos_today_path
   end
 
   def destroy
+    todo = Todo.find(params[:id])
+    todo.destroy
+    redirect_to :back
   end
 
   private
