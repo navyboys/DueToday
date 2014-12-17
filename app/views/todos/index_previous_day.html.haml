@@ -1,0 +1,4 @@
+= render 'shared/content_title', title: "Todos for Today"
+%ul
+  - current_user.todos_by_date(previous_day_with_uncompleted_tasks).each do |todo|
+    %li= todo.name

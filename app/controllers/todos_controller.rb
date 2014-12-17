@@ -4,6 +4,9 @@ class TodosController < ApplicationController
   def index_today
   end
 
+  def index_previous_day
+  end
+
   def create
     @todo = current_user.todos.build(todo_params)
     flash[:error] = 'Input title please.' unless @todo.save
