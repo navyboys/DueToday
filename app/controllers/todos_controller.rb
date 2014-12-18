@@ -19,6 +19,12 @@ class TodosController < ApplicationController
     redirect_to :back
   end
 
+  def update
+    @todo = Todo.find(params[:id])
+    @todo.update_attribute(:status, params[:todo][:status])
+    redirect_to :back
+  end
+
   private
 
   def todo_params

@@ -7,6 +7,12 @@ RSpec.describe TodosController, type: :controller do
     end
   end
 
+  describe 'GET index_previous_day' do
+    it_behaves_like 'requires sign in' do
+      let(:action) { get :index_previous_day }
+    end
+  end
+
   describe 'POST create' do
     context 'with authenticated users' do
       let(:current_user) { Fabricate(:user) }
@@ -38,7 +44,7 @@ RSpec.describe TodosController, type: :controller do
     end
 
     it_behaves_like 'requires sign in' do
-      let(:action) { get :index_today }
+      let(:action) { post :create }
     end
   end
 
@@ -47,7 +53,7 @@ RSpec.describe TodosController, type: :controller do
       set_current_user
       request.env['HTTP_REFERER'] = todos_today_path
       todo = Fabricate(:todo)
-      delete :destroy, id: todo.id
+      delete :destroy, id: todo
     end
 
     it 'redirects to original page' do
@@ -59,31 +65,32 @@ RSpec.describe TodosController, type: :controller do
     end
 
     it_behaves_like 'requires sign in' do
-      let(:action) { get :index_today }
+      let(:action) { delete :destroy, id: Fabricate(:todo) }
     end
   end
 
-  describe 'GET index_previous_day' do
-    it_behaves_like 'requires sign in' do
-      let(:action) { get :index_today }
+  describe 'PATCH update' do
+    before do
+      set_current_user
+      request.env['HTTP_REFERER'] = todos_today_path
+      todo = Fabricate(:todo)
+      todo.status = 'completed'
+      patch :update, id: todo, todo: todo.attributes
     end
-  end
 
-  describe 'POST update_status' do
-    it "changes todo's status with params"
-    it 'refresh the index_previous_day page'
-
-    it_behaves_like 'requires sign in' do
-      let(:action) { get :index_today }
+    it 'redirects to the original page' do
+      expect(response).to redirect_to todos_today_path
     end
-  end
 
-  describe 'POST update_summary' do
-    it "changes todo's summary & rate with params"
-    it 'redirects to the index_today page'
+    it "changes todo's status with params" do
+      expect(Todo.first.status).to eq('completed')
+    end
 
     it_behaves_like 'requires sign in' do
-      let(:action) { get :index_today }
+      let(:action) do
+        todo = Fabricate(:todo)
+        patch :update, id: todo, todo: todo.attributes
+      end
     end
   end
 end

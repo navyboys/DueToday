@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :users, only: [:create]
   resources :sessions, only: [:create]
 
-  resources :todos, only: [:create, :destroy]
+  resources :todos, only: [:create, :update, :destroy]
   get 'todos/today', to: "todos#index_today"
   get 'todos/previous_day', to: "todos#index_previous_day"
 end
