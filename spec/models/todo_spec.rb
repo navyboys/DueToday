@@ -8,7 +8,8 @@ RSpec.describe Todo, type: :model do
   it { should belong_to(:user) }
 
   describe '#copy_to_today' do
-    let(:todo) { Fabricate(:todo) }
+    let(:navy) { Fabricate(:user) }
+    let(:todo) { Fabricate(:todo, user: navy) }
 
     before do
       todo.copy_to_today
@@ -28,6 +29,10 @@ RSpec.describe Todo, type: :model do
 
     it 'creates a todo with the same title to the original one' do
       expect(described_class.last.title).to eq(todo.title)
+    end
+
+    it 'creates a todo with the same user to the original one' do
+      expect(described_class.last.user_id).to eq(navy.id)
     end
   end
 end
