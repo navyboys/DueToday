@@ -14,9 +14,10 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe 'POST create' do
+    let(:ben) { Fabricate(:user) }
+
     context 'with authenticated users' do
-      let(:current_user) { Fabricate(:user) }
-      before { session[:user_id] = current_user.id }
+      before { set_current_user(ben) }
 
       context 'with valid input' do
         before { post :create, todo: Fabricate.attributes_for(:todo) }
@@ -26,7 +27,7 @@ RSpec.describe TodosController, type: :controller do
         end
 
         it 'creates a todo accociated with the signed in user' do
-          expect(Todo.last.user).to eq(current_user)
+          expect(Todo.last.user).to eq(ben)
         end
       end
 
@@ -49,75 +50,82 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe 'DELETE destroy' do
-    before do
-      set_current_user
-      request.env['HTTP_REFERER'] = todos_today_path
-      todo = Fabricate(:todo)
-      delete :destroy, id: todo
-    end
+    let(:ben) { Fabricate(:user) }
+    let(:cook_dinner) { Fabricate(:todo, user: ben) }
 
-    it 'redirects to original page' do
-      expect(response).to redirect_to todos_today_path
-    end
+    context 'with authenticated users' do
+      before do
+        set_current_user(ben)
+        request.env['HTTP_REFERER'] = todos_today_path
+        delete :destroy, id: cook_dinner
+      end
 
-    it 'deletes the todo' do
-      expect(Todo.count).to eq(0)
+      it 'redirects to original page' do
+        expect(response).to redirect_to todos_today_path
+      end
+
+      it 'deletes the todo' do
+        expect(Todo.count).to eq(0)
+      end
     end
 
     it_behaves_like 'requires sign in' do
-      let(:action) { delete :destroy, id: Fabricate(:todo) }
+      let(:action) { delete :destroy, id: cook_dinner }
     end
   end
 
   describe 'PATCH update' do
-    before do
-      set_current_user
-      request.env['HTTP_REFERER'] = todos_today_path
-      todo = Fabricate(:todo)
-      todo.status = 'completed'
-      patch :update, id: todo, todo: todo.attributes
-    end
+    let(:ben) { Fabricate(:user) }
+    let(:cook_dinner) { Fabricate(:todo, user: ben) }
 
-    it 'redirects to the original page' do
-      expect(response).to redirect_to todos_today_path
-    end
+    context 'with authenticated users' do
+      before do
+        set_current_user(ben)
+        request.env['HTTP_REFERER'] = todos_today_path
+        cook_dinner.status = 'completed'
+        patch :update, id: cook_dinner, todo: cook_dinner.attributes
+      end
 
-    it "changes todo's status with params" do
-      expect(Todo.first.status).to eq('completed')
+      it 'redirects to the original page' do
+        expect(response).to redirect_to todos_today_path
+      end
+
+      it "changes todo's status with params" do
+        expect(Todo.first.status).to eq('completed')
+      end
     end
 
     it_behaves_like 'requires sign in' do
       let(:action) do
-        todo = Fabricate(:todo)
-        patch :update, id: todo, todo: todo.attributes
+        patch :update, id: cook_dinner, todo: cook_dinner.attributes
       end
     end
   end
 
   describe 'POST copy_to_today' do
-    before do
-      set_current_user
-      request.env['HTTP_REFERER'] = todos_previous_day_path
-      todo = Fabricate(:todo)
-      post :copy_to_today, id: todo, todo: todo.attributes
+    let(:ben) { Fabricate(:user) }
+    let(:cook_dinner) { Fabricate(:todo, user: ben) }
+
+    context 'with authenticated users' do
+      before do
+        set_current_user(ben)
+        request.env['HTTP_REFERER'] = todos_previous_day_path
+        post :copy_to_today, id: cook_dinner, todo: cook_dinner.attributes
+      end
+
+      it 'redirects to the original page' do
+        expect(response).to redirect_to todos_previous_day_path
+      end
+
+      it 'copies a todo with same title due to today' do
+        expect(Todo.count).to eq(2)
+        expect(Todo.last.title).to eq(cook_dinner.title)
+      end
     end
-
-    it 'redirects to the original page' do
-      expect(response).to redirect_to todos_previous_day_path
-    end
-
-    # it 'creates a todo' do
-    #   expect(Todo.count).to eq(2)
-    # end
-
-    # it 'creates a todo accociated with the signed in user'
-    # it 'creates a todo due to today'
-    # it 'creates a todo with the same title to the original one'
 
     it_behaves_like 'requires sign in' do
       let(:action) do
-        todo = Fabricate(:todo)
-        post :copy_to_today, id: todo, todo: todo.attributes
+        post :copy_to_today, id: cook_dinner, todo: cook_dinner.attributes
       end
     end
   end
