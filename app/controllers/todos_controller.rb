@@ -25,6 +25,12 @@ class TodosController < ApplicationController
     redirect_to :back
   end
 
+  def copy_to_today
+    todo = Todo.find(params[:id])
+    todo.copy_to_today
+    redirect_to :back
+  end
+
   private
 
   def todo_params

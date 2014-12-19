@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   resources :todos, only: [:create, :update, :destroy]
   get 'todos/today', to: "todos#index_today"
   get 'todos/previous_day', to: "todos#index_previous_day"
+  post 'todos/:id', to: "todos#copy_to_today"
 end

@@ -7,6 +7,13 @@ class Todo < ActiveRecord::Base
 
   before_create :set_default_value
 
+  def copy_to_today
+    todo_copy = dup
+    todo_copy.status = 'open'
+    todo_copy.due = Date.today
+    todo_copy.save
+  end
+
   private
 
   def set_default_value

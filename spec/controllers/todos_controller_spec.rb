@@ -93,4 +93,32 @@ RSpec.describe TodosController, type: :controller do
       end
     end
   end
+
+  describe 'POST copy_to_today' do
+    before do
+      set_current_user
+      request.env['HTTP_REFERER'] = todos_previous_day_path
+      todo = Fabricate(:todo)
+      post :copy_to_today, id: todo, todo: todo.attributes
+    end
+
+    it 'redirects to the original page' do
+      expect(response).to redirect_to todos_previous_day_path
+    end
+
+    # it 'creates a todo' do
+    #   expect(Todo.count).to eq(2)
+    # end
+
+    # it 'creates a todo accociated with the signed in user'
+    # it 'creates a todo due to today'
+    # it 'creates a todo with the same title to the original one'
+
+    it_behaves_like 'requires sign in' do
+      let(:action) do
+        todo = Fabricate(:todo)
+        post :copy_to_today, id: todo, todo: todo.attributes
+      end
+    end
+  end
 end
