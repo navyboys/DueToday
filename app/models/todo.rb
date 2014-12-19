@@ -1,5 +1,5 @@
 class Todo < ActiveRecord::Base
-  validates :name, presence: true
+  validates :title, presence: true
   validates :status, presence: true
   validates :due, presence: true
 

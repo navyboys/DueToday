@@ -31,7 +31,7 @@ RSpec.describe TodosController, type: :controller do
       end
 
       context 'with invalid input' do
-        before { post :create, todo: { name: nil } }
+        before { post :create, todo: { title: nil } }
 
         it 'does not create a todo' do
           expect(Todo.count).to eq(0)

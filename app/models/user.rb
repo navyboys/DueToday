@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true
-  validates :nick_name, presence: true
+  validates :name, presence: true
 
   has_many :todos
 
