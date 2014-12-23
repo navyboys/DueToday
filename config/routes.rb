@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:create]
   resources :sessions, only: [:create]
+  resources :summaries, only: [:create]
 
   resources :todos, only: [:create, :update, :destroy]
   get 'todos/today', to: "todos#index_today"

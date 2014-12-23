@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
   it { should validate_uniqueness_of(:email) }
 
   it { should have_many(:todos) }
+  it { should have_many(:summaries) }
 
   describe '#todos_by_date(date)' do
     let(:navy) { Fabricate(:user) }

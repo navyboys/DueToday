@@ -22,6 +22,10 @@ RSpec.describe TodosController, type: :controller do
       context 'with valid input' do
         before { post :create, todo: Fabricate.attributes_for(:todo) }
 
+        it 'redirects to todos_today page' do
+          expect(response).to redirect_to todos_today_path
+        end
+
         it 'creates a todo' do
           expect(Todo.count).to eq(1)
         end
@@ -33,6 +37,10 @@ RSpec.describe TodosController, type: :controller do
 
       context 'with invalid input' do
         before { post :create, todo: { title: nil } }
+
+        it 'redirects to todos_today page' do
+          expect(response).to redirect_to todos_today_path
+        end
 
         it 'does not create a todo' do
           expect(Todo.count).to eq(0)

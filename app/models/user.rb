@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   has_many :todos
+  has_many :summaries
 
   has_secure_password
 
