@@ -1,7 +1,5 @@
 class Todo < ActiveRecord::Base
   validates :title, presence: true
-  validates :status, presence: true
-  validates :due, presence: true
 
   belongs_to :user
 
@@ -12,6 +10,10 @@ class Todo < ActiveRecord::Base
     todo_copy.status = 'open'
     todo_copy.due = Date.today
     todo_copy.save
+  end
+
+  def completed?
+    status == 'completed'
   end
 
   private

@@ -2,10 +2,23 @@ require 'rails_helper'
 
 RSpec.describe Todo, type: :model do
   it { should validate_presence_of(:title) }
-  it { should validate_presence_of(:status) }
-  it { should validate_presence_of(:due) }
 
   it { should belong_to(:user) }
+
+  describe '#completed?' do
+    let(:navy) { Fabricate(:user) }
+    let(:todo) { Fabricate(:todo, user: navy) }
+
+    it 'returns ture when status is completed' do
+      todo.status = 'completed'
+      expect(todo.completed?).to eq(true)
+    end
+
+    it 'returns false when status is not completed' do
+      todo.status = 'open'
+      expect(todo.completed?).to eq(false)
+    end
+  end
 
   describe '#copy_to_today' do
     let(:navy) { Fabricate(:user) }

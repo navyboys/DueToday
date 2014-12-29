@@ -2,6 +2,17 @@ require 'rails_helper'
 
 RSpec.describe TodosController, type: :controller do
   describe 'GET index_today' do
+    context 'with authenticated users' do
+      let(:ben) { Fabricate(:user) }
+
+      before { set_current_user(ben) }
+
+      it 'assigns @todo' do
+        get :index_today
+        expect(assigns(:todo)).to be_a_new(Todo)
+      end
+    end
+
     it_behaves_like 'requires sign in' do
       let(:action) { get :index_today }
     end
@@ -90,8 +101,7 @@ RSpec.describe TodosController, type: :controller do
       before do
         set_current_user(ben)
         request.env['HTTP_REFERER'] = todos_today_path
-        cook_dinner.status = 'completed'
-        patch :update, id: cook_dinner, todo: cook_dinner.attributes
+        patch :update, id: cook_dinner, format: 'completed'
       end
 
       it 'redirects to the original page' do

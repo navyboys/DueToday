@@ -2,6 +2,7 @@ class TodosController < ApplicationController
   before_action :require_user
 
   def index_today
+    @todo = Todo.new
   end
 
   def index_previous_day
@@ -21,7 +22,7 @@ class TodosController < ApplicationController
 
   def update
     @todo = Todo.find(params[:id])
-    @todo.update_attribute(:status, params[:todo][:status])
+    @todo.update_attribute(:status, params[:format])
     redirect_to :back
   end
 
