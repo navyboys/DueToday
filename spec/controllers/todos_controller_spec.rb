@@ -19,6 +19,17 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe 'GET index_previous_day' do
+    context 'with authenticated users' do
+      let(:navy) { Fabricate(:user) }
+
+      before { set_current_user(navy) }
+
+      it 'assigns @summary' do
+        get :index_previous_day
+        expect(assigns(:summary)).to be_a_new(Summary)
+      end
+    end
+
     it_behaves_like 'requires sign in' do
       let(:action) { get :index_previous_day }
     end

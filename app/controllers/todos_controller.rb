@@ -6,6 +6,7 @@ class TodosController < ApplicationController
   end
 
   def index_previous_day
+    @summary = Summary.new
   end
 
   def create

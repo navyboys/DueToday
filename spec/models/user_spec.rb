@@ -28,16 +28,14 @@ RSpec.describe User, type: :model do
     let(:navy) { Fabricate(:user) }
     let(:today) { Date.today }
 
-    it 'returns the last day the user has open todos before today' do
-      todo_the_day_before_yestoday = Fabricate(:todo, user: navy)
-      todo_the_day_before_yestoday.update_attribute(:due, today - 2)
-      todo_yestoday = Fabricate(:todo, user: navy)
-      todo_yestoday.update_attribute(:due, today - 1)
+    it "returns the last todo's due date except today" do
+      todo_previous_day = Fabricate(:todo, user: navy)
+      todo_previous_day.update_attribute(:due, today - 2)
       Fabricate(:todo, user: navy)
-      expect(navy.previous_day).to eq(today - 1)
+      expect(navy.previous_day).to eq(today - 2)
     end
 
-    it 'returns nil when the user has no open todos before today' do
+    it "returns nil when there's no todo before today" do
       expect(navy.previous_day).to eq(nil)
     end
   end

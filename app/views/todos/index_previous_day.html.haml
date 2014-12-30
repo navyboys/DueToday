@@ -1,4 +1,20 @@
 = render 'shared/content_title', title: "Todos for Today"
-%ul
-  - current_user.todos_by_date(previous_day).each do |todo|
-    %li= todo.title
+.well
+  %ul
+    - current_user.todos_by_date(current_user.previous_day).each do |todo|
+      %li
+        - if todo.completed?
+          = link_to '', todo_path(todo, 'failed'), method: :patch, class: 'glyphicon glyphicon-check'
+          %strike{:style => 'opacity: 0.4;'}= todo.title
+        - elsif todo.failed?
+          = link_to '', todo_path(todo, 'completed'), method: :patch, class: 'glyphicon glyphicon-thumbs-down'
+          %span{:style => 'opacity: 0.4;'}= todo.title
+        - else
+          = link_to '', todo_path(todo, 'completed'), method: :patch, class: 'glyphicon glyphicon-unchecked'
+          = todo.title
+        = link_to '', todo, method: :copy_to_today, class: 'glyphicon glyphicon-plus-sign'
+.well
+  = bootstrap_form_for(@summary) do |f|
+    = f.text_area :description
+    = f.hidden_field :date, value: current_user.previous_day
+    = f.submit 'Submit'

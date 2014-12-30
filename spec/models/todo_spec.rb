@@ -20,6 +20,21 @@ RSpec.describe Todo, type: :model do
     end
   end
 
+  describe '#failed?' do
+    let(:navy) { Fabricate(:user) }
+    let(:todo) { Fabricate(:todo, user: navy) }
+
+    it 'returns ture when status is failed' do
+      todo.status = 'failed'
+      expect(todo.failed?).to eq(true)
+    end
+
+    it 'returns false when status is not completed' do
+      todo.status = 'open'
+      expect(todo.failed?).to eq(false)
+    end
+  end
+
   describe '#copy_to_today' do
     let(:navy) { Fabricate(:user) }
     let(:todo) { Fabricate(:todo, user: navy) }

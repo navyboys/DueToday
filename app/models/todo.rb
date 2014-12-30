@@ -16,6 +16,10 @@ class Todo < ActiveRecord::Base
     status == 'completed'
   end
 
+  def failed?
+    status == 'failed'
+  end
+
   private
 
   def set_default_value

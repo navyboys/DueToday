@@ -4,12 +4,12 @@
     - current_user.todos_by_date(Date.today).each do |todo|
       %li
         - if todo.completed?
-          = link_to '', todo_path(todo, 'completed'), method: :patch, class: 'glyphicon glyphicon-ok-sign'
+          = link_to '', todo_path(todo, 'completed'), method: :patch, class: 'glyphicon glyphicon-check'
           %strike{:style => 'opacity: 0.4;'}= todo.title
         - else
-          = link_to '', todo_path(todo, 'completed'), method: :patch, class: 'glyphicon glyphicon-ok-circle'
+          = link_to '', todo_path(todo, 'completed'), method: :patch, class: 'glyphicon glyphicon-unchecked'
           = todo.title
-        = link_to '', todo, method: :delete, class: 'glyphicon glyphicon-trash'
+          = link_to '', todo, method: :delete, class: 'glyphicon glyphicon-trash'
 .well
   = bootstrap_form_for(@todo) do |f|
     = f.text_field :title
