@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe TodosController, type: :controller do
   describe 'GET index_today' do
     context 'with authenticated users' do
-      let(:ben) { Fabricate(:user) }
+      let(:navy) { Fabricate(:user) }
 
-      before { set_current_user(ben) }
+      before { set_current_user(navy) }
 
       it 'assigns @todo' do
         get :index_today
@@ -25,10 +25,10 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe 'POST create' do
-    let(:ben) { Fabricate(:user) }
+    let(:navy) { Fabricate(:user) }
 
     context 'with authenticated users' do
-      before { set_current_user(ben) }
+      before { set_current_user(navy) }
 
       context 'with valid input' do
         before { post :create, todo: Fabricate.attributes_for(:todo) }
@@ -42,7 +42,7 @@ RSpec.describe TodosController, type: :controller do
         end
 
         it 'creates a todo accociated with the signed in user' do
-          expect(Todo.last.user).to eq(ben)
+          expect(Todo.last.user).to eq(navy)
         end
       end
 
@@ -69,12 +69,12 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe 'DELETE destroy' do
-    let(:ben) { Fabricate(:user) }
-    let(:cook_dinner) { Fabricate(:todo, user: ben) }
+    let(:navy) { Fabricate(:user) }
+    let(:cook_dinner) { Fabricate(:todo, user: navy) }
 
     context 'with authenticated users' do
       before do
-        set_current_user(ben)
+        set_current_user(navy)
         request.env['HTTP_REFERER'] = todos_today_path
         delete :destroy, id: cook_dinner
       end
@@ -94,12 +94,12 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe 'PATCH update' do
-    let(:ben) { Fabricate(:user) }
-    let(:cook_dinner) { Fabricate(:todo, user: ben) }
+    let(:navy) { Fabricate(:user) }
+    let(:cook_dinner) { Fabricate(:todo, user: navy) }
 
     context 'with authenticated users' do
       before do
-        set_current_user(ben)
+        set_current_user(navy)
         request.env['HTTP_REFERER'] = todos_today_path
         patch :update, id: cook_dinner, format: 'completed'
       end
@@ -121,12 +121,12 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe 'POST copy_to_today' do
-    let(:ben) { Fabricate(:user) }
-    let(:cook_dinner) { Fabricate(:todo, user: ben) }
+    let(:navy) { Fabricate(:user) }
+    let(:cook_dinner) { Fabricate(:todo, user: navy) }
 
     context 'with authenticated users' do
       before do
-        set_current_user(ben)
+        set_current_user(navy)
         request.env['HTTP_REFERER'] = todos_previous_day_path
         post :copy_to_today, id: cook_dinner, todo: cook_dinner.attributes
       end

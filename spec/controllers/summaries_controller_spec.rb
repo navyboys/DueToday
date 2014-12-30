@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe SummariesController, type: :controller do
   describe 'POST create' do
-    let(:ben) { Fabricate(:user) }
+    let(:navy) { Fabricate(:user) }
 
     context 'with authenticated users' do
       before do
-        set_current_user(ben)
+        set_current_user(navy)
         post :create, summary: Fabricate.attributes_for(:summary)
       end
 
@@ -19,7 +19,7 @@ RSpec.describe SummariesController, type: :controller do
       end
 
       it 'creates a summary accociated with the signed in user' do
-        expect(Summary.last.user).to eq(ben)
+        expect(Summary.last.user).to eq(navy)
       end
     end
 
