@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#previous_day_with_uncompleted_tasks' do
+  describe '#previous_day' do
     let(:navy) { Fabricate(:user) }
     let(:today) { Date.today }
 
@@ -34,11 +34,11 @@ RSpec.describe User, type: :model do
       todo_yestoday = Fabricate(:todo, user: navy)
       todo_yestoday.update_attribute(:due, today - 1)
       Fabricate(:todo, user: navy)
-      expect(navy.previous_day_with_uncompleted_tasks).to eq(today - 1)
+      expect(navy.previous_day).to eq(today - 1)
     end
 
     it 'returns nil when the user has no open todos before today' do
-      expect(navy.previous_day_with_uncompleted_tasks).to eq(nil)
+      expect(navy.previous_day).to eq(nil)
     end
   end
 end

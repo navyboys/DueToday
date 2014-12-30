@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
     todos.where(due: date)
   end
 
-  def previous_day_with_uncompleted_tasks
+  def previous_day
     lastest_open_todo = todos.where("STATUS = 'open' AND DUE < ?", Date.today).order(due: :desc).first
     lastest_open_todo ? lastest_open_todo.due : nil
   end
