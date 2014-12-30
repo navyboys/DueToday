@@ -8,10 +8,6 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  def todos_by_date(date)
-    todos.where(due: date)
-  end
-
   def previous_day
     lastest_todo_before_today = todos.where('DUE < ?', Date.today).order(due: :desc).first
     lastest_todo_before_today ? lastest_todo_before_today.due : nil
