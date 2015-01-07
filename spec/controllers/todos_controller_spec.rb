@@ -35,6 +35,47 @@ RSpec.describe TodosController, type: :controller do
     end
   end
 
+  describe 'GET history' do
+    it_behaves_like 'requires sign in' do
+      let(:action) { get :history }
+    end
+  end
+
+  describe 'POST search' do
+    # context 'with authenticated users' do
+    #   let(:navy) { Fabricate(:user) }
+    #   let(:params) do
+    #     {
+    #       from: Date.today - 1,
+    #       to: Date.today
+    #     }
+    #   end
+
+    #   before do
+    #     set_current_user(navy)
+    #     request.env['HTTP_REFERER'] = todos_history_path
+    #     Fabricate(:todo, user: navy)
+    #     todo_yestoday = Fabricate(:todo, user: navy)
+    #     todo_yestoday.due = Date.today - 1
+    #     todo_the_day_before_yestoday = Fabricate(:todo, user: navy)
+    #     todo_the_day_before_yestoday.due = Date.today - 2
+    #   end
+
+    #   it 'returns todos between the from and to date when both exsit' do
+    #     post :search, params
+    #     expect(assigns(:todos).size).to eq(2)
+    #   end
+
+    #   it 'returns all todos when from and to are both missing'
+    #   it 'returns todos before the to date when from is missing'
+    #   it 'returns todos after the from date when to is missing'
+    # end
+
+    it_behaves_like 'requires sign in' do
+      let(:action) { post :search }
+    end
+  end
+
   describe 'POST create' do
     let(:navy) { Fabricate(:user) }
 

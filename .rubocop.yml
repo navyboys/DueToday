@@ -26,3 +26,7 @@ Metrics/AbcSize:
 
 Style/AccessorMethodName:
   Enabled: false
+
+Metrics/MethodLength:
+  Max: 15
+

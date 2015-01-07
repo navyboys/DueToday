@@ -9,6 +9,23 @@ class TodosController < ApplicationController
     @summary = Summary.new
   end
 
+  def history
+  end
+
+  def search
+    @todos = Todo.where(due: params[:from]..params[:to])
+    render json: {
+      update: {
+        'history-list' => render_to_string(
+          partial: 'todos/history_list',
+          layout: false,
+          locals: {
+            todos: @todos
+          })
+      }
+    }
+  end
+
   def create
     @todo = current_user.todos.build(todo_params)
     flash[:error] = 'Input title please.' unless @todo.save
