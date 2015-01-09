@@ -42,34 +42,32 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe 'POST search' do
-    # context 'with authenticated users' do
-    #   let(:navy) { Fabricate(:user) }
-    #   let(:params) do
-    #     {
-    #       from: Date.today - 1,
-    #       to: Date.today
-    #     }
-    #   end
+    context 'with authenticated users' do
+      let(:navy) { Fabricate(:user) }
+      let(:params) do
+        {
+          from: Date.today - 1,
+          to: Date.today
+        }
+      end
 
-    #   before do
-    #     set_current_user(navy)
-    #     request.env['HTTP_REFERER'] = todos_history_path
-    #     Fabricate(:todo, user: navy)
-    #     todo_yestoday = Fabricate(:todo, user: navy)
-    #     todo_yestoday.due = Date.today - 1
-    #     todo_the_day_before_yestoday = Fabricate(:todo, user: navy)
-    #     todo_the_day_before_yestoday.due = Date.today - 2
-    #   end
+      before do
+        set_current_user(navy)
+        request.env['HTTP_REFERER'] = todos_history_path
+        Fabricate(:todo, user: navy)
+      end
 
-    #   it 'returns todos between the from and to date when both exsit' do
-    #     post :search, params
-    #     expect(assigns(:todos).size).to eq(2)
-    #   end
+      it 'assigns @dates' do
+        post :search, params
+        expect(assigns(:dates).size).to eq(1)
+      end
 
-    #   it 'returns all todos when from and to are both missing'
-    #   it 'returns todos before the to date when from is missing'
-    #   it 'returns todos after the from date when to is missing'
-    # end
+      it 'returns error message when from date is latter than to date' do
+        params[:from] = Date.today + 1
+        post :search, params
+        expect(flash[:error]).to be_present
+      end
+    end
 
     it_behaves_like 'requires sign in' do
       let(:action) { post :search }
@@ -110,7 +108,7 @@ RSpec.describe TodosController, type: :controller do
         end
 
         it 'shows the error message' do
-          expect(flash[:error]).to be_present
+          expect(flash[:error]).to eq('Input title please.')
         end
       end
     end

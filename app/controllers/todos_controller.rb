@@ -13,14 +13,19 @@ class TodosController < ApplicationController
   end
 
   def search
-    @todos = Todo.where(due: params[:from]..params[:to])
+    if params[:from] > params[:to]
+      flash[:error] = 'Date(To) must be latter than Date(From).'
+    else
+      @dates = current_user.active_days(params[:from], params[:to])
+    end
+
     render json: {
       update: {
         'history-list' => render_to_string(
           partial: 'todos/history_list',
           layout: false,
           locals: {
-            todos: @todos
+            dates: @dates
           })
       }
     }
