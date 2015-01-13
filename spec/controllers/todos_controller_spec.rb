@@ -61,12 +61,6 @@ RSpec.describe TodosController, type: :controller do
         post :search, params
         expect(assigns(:dates).size).to eq(1)
       end
-
-      it 'returns error message when from date is latter than to date' do
-        params[:from] = Date.today + 1
-        post :search, params
-        expect(flash[:error]).to be_present
-      end
     end
 
     it_behaves_like 'requires sign in' do

@@ -13,12 +13,7 @@ class TodosController < ApplicationController
   end
 
   def search
-    if params[:from] > params[:to]
-      flash[:error] = 'Date(To) must be latter than Date(From).'
-    else
-      @dates = current_user.active_days(params[:from], params[:to])
-    end
-
+    @dates = current_user.active_days(params[:from], params[:to])
     render json: {
       update: {
         'history-list' => render_to_string(
