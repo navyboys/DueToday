@@ -10,9 +10,7 @@ class TodosController < ApplicationController
   end
 
   def history
-    unless params[:commit].blank?
-      show_histories
-    end
+    show_histories unless params[:commit].blank?
   end
 
   def search
@@ -60,6 +58,6 @@ class TodosController < ApplicationController
             dates: @dates
           })
       }
-    }    
+    }
   end
 end
