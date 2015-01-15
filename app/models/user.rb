@@ -23,6 +23,5 @@ class User < ActiveRecord::Base
     else
       result_todos = todos.select('DUE').group('DUE').where(due: date_from..date_to)
     end
-    result_todos.each_with_object([]) { |todo, array| array << todo.due }
   end
 end

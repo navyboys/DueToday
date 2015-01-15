@@ -1,11 +1,12 @@
 .well
   - if dates
+    = paginate dates, :remote => true
     - dates.each do |date|
-      %p= date
+      %p= date.due
       .row
         .col-md-6
           %ul
-            - current_user.todos.where(due: date).each do |todo|
+            - current_user.todos.where(due: date.due).each do |todo|
               %li
                 - if todo.completed?
                   %span{:class => 'glyphicon glyphicon-check'}
@@ -13,6 +14,6 @@
                   %span{:class => 'glyphicon glyphicon-thumbs-down'}
                 = todo.title
         .col-md-6
-          - current_user.summaries.where(date: date).each do |summary|
+          - current_user.summaries.where(date: date.due).each do |summary|
             %p= summary.description
       %hr

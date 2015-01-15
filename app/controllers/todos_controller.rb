@@ -10,20 +10,13 @@ class TodosController < ApplicationController
   end
 
   def history
+    unless params[:commit].blank?
+      show_histories
+    end
   end
 
   def search
-    @dates = current_user.active_days(params[:from], params[:to])
-    render json: {
-      update: {
-        'history-list' => render_to_string(
-          partial: 'todos/history_list',
-          layout: false,
-          locals: {
-            dates: @dates
-          })
-      }
-    }
+    show_histories
   end
 
   def create
@@ -54,5 +47,19 @@ class TodosController < ApplicationController
 
   def todo_params
     params.require(:todo).permit(:title, :status, :due, :user_id)
+  end
+
+  def show_histories
+    @dates = current_user.active_days(params[:from], params[:to]).page params[:page]
+    render json: {
+      update: {
+        'history-list' => render_to_string(
+          partial: 'todos/history_list',
+          layout: false,
+          locals: {
+            dates: @dates
+          })
+      }
+    }    
   end
 end
