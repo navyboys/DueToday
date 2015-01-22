@@ -7,6 +7,12 @@ RSpec.describe TodosController, type: :controller do
 
       before { set_current_user(navy) }
 
+      it "redirects to index_previous_day when previous day's job is not processed yet" do
+        Fabricate(:todo, user: navy, due: Date.today - 1)
+        get :index_today
+        expect(response).to redirect_to todos_previous_day_path
+      end
+
       it 'assigns @todo' do
         get :index_today
         expect(assigns(:todo)).to be_a_new(Todo)

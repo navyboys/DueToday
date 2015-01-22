@@ -2,7 +2,11 @@ class TodosController < ApplicationController
   before_action :require_user
 
   def index_today
-    @todo = Todo.new
+    if current_user.day_job_processed?(current_user.previous_day)
+      @todo = Todo.new
+    else
+      redirect_to todos_previous_day_path
+    end
   end
 
   def index_previous_day

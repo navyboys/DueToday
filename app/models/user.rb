@@ -24,4 +24,17 @@ class User < ActiveRecord::Base
       todos.select('DUE').group('DUE').where(due: date_from..date_to)
     end
   end
+
+  def day_job_processed?(date)
+    if date.nil?
+      return true
+    elsif summaries.where(date: date).count == 0
+      return false
+    elsif todos.where(due: date, status: 'open').count == 0 &&
+          summaries.select('description').where(date: date).first.description != ''
+      return true
+    else
+      return false
+    end
+  end
 end

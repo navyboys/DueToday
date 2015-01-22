@@ -23,7 +23,7 @@ class Todo < ActiveRecord::Base
   private
 
   def set_default_value
-    self.status = 'open'
-    self.due = Date.today
+    self.status = 'open' if status.blank?
+    self.due = Date.today if due.blank?
   end
 end

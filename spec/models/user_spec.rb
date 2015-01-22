@@ -62,4 +62,36 @@ RSpec.describe User, type: :model do
       expect(navy.active_days(today + 1, today + 2)).to eq([])
     end
   end
+
+  describe '#day_job_processed?(date)' do
+    let(:navy) { Fabricate(:user) }
+    let(:date) { Date.today - 1 }
+
+    it 'returns true when date is nil' do
+      expect(navy.day_job_processed?(nil)).to eq(true)
+    end
+
+    it 'returns false when there are tasks still open' do
+      Fabricate(:todo, user: navy, due: date, status: 'open')
+      Fabricate(:summary, user: navy, date: date, description: '')
+      expect(navy.day_job_processed?(date)).to eq(false)
+    end
+
+    it 'returns false when there is no summary existed that day' do
+      Fabricate(:todo, user: navy, due: date, status: 'completed')
+      expect(navy.day_job_processed?(date)).to eq(false)
+    end
+
+    it 'returns false when summary description is null' do
+      Fabricate(:todo, user: navy, due: date, status: 'completed')
+      Fabricate(:summary, user: navy, date: date, description: '')
+      expect(navy.day_job_processed?(date)).to eq(false)
+    end
+
+    it 'returns ture when there is no open tasks remained and summary is not null' do
+      Fabricate(:todo, user: navy, due: date, status: 'completed')
+      Fabricate(:summary, user: navy, date: date, description: 'Well Done.')
+      expect(navy.day_job_processed?(date)).to eq(true)
+    end
+  end
 end
