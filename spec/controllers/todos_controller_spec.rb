@@ -27,12 +27,20 @@ RSpec.describe TodosController, type: :controller do
   describe 'GET index_previous_day' do
     context 'with authenticated users' do
       let(:navy) { Fabricate(:user) }
+      let(:yestoday) { Date.today - 1 }
 
       before { set_current_user(navy) }
 
-      it 'assigns @summary' do
+      it 'assigns @summary to a new model when it is not exsit' do
         get :index_previous_day
         expect(assigns(:summary)).to be_a_new(Summary)
+      end
+
+      it "assigns @summary to the day's summary when it is exsit" do
+        Fabricate(:todo, user: navy, due: yestoday)
+        previous_summary = Fabricate(:summary, user: navy, date: yestoday, description: 'A bad day.')
+        get :index_previous_day
+        expect(assigns(:summary)).to eq(previous_summary)
       end
     end
 

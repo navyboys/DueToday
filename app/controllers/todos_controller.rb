@@ -10,7 +10,11 @@ class TodosController < ApplicationController
   end
 
   def index_previous_day
-    @summary = Summary.new
+    if current_user.summaries.where(date: current_user.previous_day).count != 0
+      @summary = current_user.summaries.where(date: current_user.previous_day).first
+    else
+      @summary = Summary.new
+    end
   end
 
   def history
