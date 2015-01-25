@@ -16,6 +16,7 @@ feature 'show history' do
     click_button 'Find'
     expect(page).to have_content todo_today[:name]
     expect(page).to have_content 'Next'
+    expect(page).to have_content 'Last'
 
     # link to today page
     visit todos_history_path
