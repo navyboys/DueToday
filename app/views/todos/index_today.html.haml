@@ -14,3 +14,5 @@
   = bootstrap_form_for(@todo) do |f|
     = f.text_field :title
     = f.submit 'Add'
+.well
+  = link_to 'Show History', todos_history_path

@@ -23,5 +23,9 @@ feature 'todo processing: today' do
     # delete a todo
     find("a[href='/todos/#{buy_ticket.id}']").click
     expect(page).to have_no_content buy_ticket[:title]
+
+    # link to history page
+    click_link 'Show History'
+    expect(find(:xpath, "//input[@type='submit']").value).to eq('Find')
   end
 end
