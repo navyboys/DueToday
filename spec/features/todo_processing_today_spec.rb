@@ -18,11 +18,13 @@ feature 'todo processing: today' do
 
     # complete(check) a todo
     find("a[href='/todos/#{visit_clinic.id}.completed']").click
-    expect(page).to have_css('strike')
+    expect(page).to have_css('a.glyphicon-check')
+    expect(Todo.find(visit_clinic[:id])[:status]).to eq('completed')
 
     # delete a todo
     find("a[href='/todos/#{buy_ticket.id}']").click
     expect(page).to have_no_content buy_ticket[:title]
+    expect(Todo.count).to eq(2)
 
     # link to history page
     click_link 'Show History'

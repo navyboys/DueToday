@@ -12,7 +12,7 @@
         - else
           = link_to '', todo_path(todo, 'completed'), method: :patch, class: 'glyphicon glyphicon-unchecked'
           = todo.title
-        = link_to '', todo, method: :copy_to_today, class: 'glyphicon glyphicon-plus-sign'
+        = link_to '', todo, method: :post, class: 'glyphicon glyphicon-plus-sign'
 .well
   = bootstrap_form_for(@summary) do |f|
     = f.text_area :description

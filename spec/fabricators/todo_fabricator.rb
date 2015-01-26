@@ -1,5 +1,5 @@
 Fabricator(:todo) do
   title { Faker::Lorem.words(5).join(' ') }
-  status { Faker::Lorem.word }
+  status 'open'
   due Date.today
 end
