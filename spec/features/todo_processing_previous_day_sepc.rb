@@ -18,7 +18,7 @@ feature 'todo processing: previous day' do
 
     # complete(check) a todo
     visit todos_previous_day_path
-    find("a[href='/todos/#{todo_yestoday.id}.completed']").click
+    find("a[href='/todos/#{todo_yestoday.id}.completed'][data-method='patch']").click
     expect(page).to have_css('a.glyphicon-check')
     expect(Todo.find(todo_yestoday[:id])[:status]).to eq('completed')
 
@@ -27,12 +27,12 @@ feature 'todo processing: previous day' do
     expect(page).to have_content('Add your summary about the day.')
 
     # fail a todo
-    find("a[href='/todos/#{todo_yestoday.id}.failed']").click
+    find("a[href='/todos/#{todo_yestoday.id}.failed'][data-method='patch']").click
     expect(page).to have_css('a.glyphicon-thumbs-down')
     expect(Todo.find(todo_yestoday[:id])[:status]).to eq('failed')
 
     # copy a todo to today
-    find("a[href='/todos/#{todo_yestoday.id}']").click
+    find("a[href='/todos/#{todo_yestoday.id}'][data-method='post']").click
     expect(Todo.count).to eq(2)
 
     # add summary description

@@ -17,12 +17,12 @@ feature 'todo processing: today' do
     expect(page).to have_content 'Cook Dinner'
 
     # complete(check) a todo
-    find("a[href='/todos/#{visit_clinic.id}.completed']").click
+    find("a[href='/todos/#{visit_clinic.id}.completed'][data-method='patch']").click
     expect(page).to have_css('a.glyphicon-check')
     expect(Todo.find(visit_clinic[:id])[:status]).to eq('completed')
 
     # delete a todo
-    find("a[href='/todos/#{buy_ticket.id}']").click
+    find("a[href='/todos/#{buy_ticket.id}'][data-method='delete']").click
     expect(page).to have_no_content buy_ticket[:title]
     expect(Todo.count).to eq(2)
 
