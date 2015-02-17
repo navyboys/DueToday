@@ -1,18 +1,29 @@
-= render 'shared/content_title', title: "Todos for Today"
-.well
-  %ul
-    - current_user.todos.where(due: Date.today).each do |todo|
-      %li
-        - if todo.completed?
-          = link_to '', todo_path(todo, 'completed'), method: :patch, class: 'glyphicon glyphicon-check'
-          %strike{:style => 'opacity: 0.4;'}= todo.title
-        - else
-          = link_to '', todo_path(todo, 'completed'), method: :patch, class: 'glyphicon glyphicon-unchecked'
-          = todo.title
-          = link_to '', todo, method: :delete, class: 'glyphicon glyphicon-trash'
-.well
-  = bootstrap_form_for(@todo) do |f|
-    = f.text_field :title
-    = f.submit 'Add'
-.well
-  = link_to 'Show History', todos_history_path
+%h2.title
+  Todos due
+  %span.date Today
+#todo_items_wrapper
+  - current_user.todos.where(due: Date.today).each do |todo|
+    .row
+      - if todo.completed?
+        .icon_left
+          %i.glyphicon.glyphicon-check{:style => 'opacity: 0.6;'}
+        .todo_title
+          %p{:style => 'opacity: 0.6;'}
+            %strike= todo.title
+        .icon_right
+          %i.glyphicon.glyphicon-trash{:style => 'opacity: 0.6;'}
+      - else
+        .icon_left
+          = link_to todo_path(todo, 'completed'), method: :patch do
+            %i.glyphicon.glyphicon-unchecked
+        .todo_title
+          %p= todo.title
+        .icon_right
+          = link_to todo, method: :delete do
+            %i.glyphicon.glyphicon-trash
+  #form
+    = form_for(@todo) do |f|
+      = f.text_field :title, placeholder: 'New Todo'
+      = f.submit 'Add'
+  .links
+    = link_to 'Show History', history_path

@@ -19,7 +19,7 @@ feature 'show history' do
     expect(page).to have_content 'Last'
 
     # link to today page
-    visit todos_history_path
+    visit history_path
     click_link 'Back to Today'
     expect(find(:xpath, "//input[@type='submit']").value).to eq('Add')
   end

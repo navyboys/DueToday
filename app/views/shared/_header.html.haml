@@ -1,15 +1,9 @@
-%section#top-header.row
-  %h1.col-md-2
-    = link_to 'TodoToday'
-  - if current_user
-    #user_links.pull-right
-      %ul
-        %li.dropdown
-          %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
-            Welcome, #{current_user.name}
-            %b.caret
-          %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
-            %li
-              %a(href="#") Account
-              %a(href="#") Plan and Billing
-              = link_to 'Sign Out', sign_out_path
+- if current_user
+  .pull-right
+    .dropdown
+      %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
+        #{current_user.name}
+        %b.caret
+      %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
+        %li
+          = link_to 'Sign Out', sign_out_path

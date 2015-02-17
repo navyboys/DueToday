@@ -1,6 +1,5 @@
-= render 'shared/content_title', title: 'History'
+%h2.title History
 = render 'todos/search_form'
 #history-list
-.well
-  = link_to 'Back to Today', todos_today_path
-
+.links
+  = link_to 'Back to Today', today_path

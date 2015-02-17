@@ -16,25 +16,25 @@ RSpec.describe SummariesController, type: :controller do
 
       before do
         set_current_user(navy)
-        request.env['HTTP_REFERER'] = todos_previous_day_path
+        request.env['HTTP_REFERER'] = previous_path
       end
 
       it 'shows error message when open todos exsit' do
         Fabricate(:todo, user: navy, due: date, status: 'open')
         post :create, summary: params
-        expect(flash[:error]).to eq('Process all your todos first.')
+        expect(flash[:danger]).to eq('Process all your todos first.')
       end
 
       it 'shows error message when description is blank' do
         params[:description] = ''
         post :create, summary: params
-        expect(flash[:error]).to eq('Add your summary about the day.')
+        expect(flash[:danger]).to eq('Add your summary about the day.')
       end
 
       it 'redirects to original page when error occurs' do
         Fabricate(:todo, user: navy, due: date, status: 'open')
         post :create, summary: params
-        expect(response).to redirect_to todos_previous_day_path
+        expect(response).to redirect_to previous_path
       end
 
       context 'created successfully' do
@@ -43,7 +43,7 @@ RSpec.describe SummariesController, type: :controller do
         end
 
         it 'redirects to todos_today page' do
-          expect(response).to redirect_to todos_today_path
+          expect(response).to redirect_to today_path
         end
 
         it 'creates a summary' do
@@ -73,7 +73,7 @@ RSpec.describe SummariesController, type: :controller do
       it 'shows error message when description is blank' do
         summary_yestoday[:description] = ''
         patch :update, id: summary_yestoday, summary: summary_yestoday.attributes
-        expect(flash[:error]).to eq('Add your summary about the day.')
+        expect(flash[:danger]).to eq('Add your summary about the day.')
       end
 
       it 'redirects to original page when error occurs' do
@@ -84,12 +84,12 @@ RSpec.describe SummariesController, type: :controller do
 
       it 'shows notice message when successfully updated' do
         patch :update, id: summary_yestoday, summary: summary_yestoday.attributes
-        expect(flash[:notice]).to eq('Description updated.')
+        expect(flash[:info]).to eq('Description updated.')
       end
 
       it 'redirects to index_today page' do
         patch :update, id: summary_yestoday, summary: summary_yestoday.attributes
-        expect(response).to redirect_to todos_today_path
+        expect(response).to redirect_to today_path
       end
 
       it "changes summary's description with params" do

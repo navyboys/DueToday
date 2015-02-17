@@ -5,7 +5,7 @@ class TodosController < ApplicationController
     if current_user.day_job_processed?(current_user.previous_day)
       @todo = Todo.new
     else
-      redirect_to todos_previous_day_path
+      redirect_to previous_path
     end
   end
 
@@ -27,8 +27,8 @@ class TodosController < ApplicationController
 
   def create
     @todo = current_user.todos.build(todo_params)
-    flash[:error] = 'Input title please.' unless @todo.save
-    redirect_to todos_today_path
+    flash[:danger] = 'Input title please.' unless @todo.save
+    redirect_to today_path
   end
 
   def destroy

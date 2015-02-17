@@ -10,7 +10,7 @@ RSpec.describe TodosController, type: :controller do
       it "redirects to index_previous_day when previous day's job is not processed yet" do
         Fabricate(:todo, user: navy, due: Date.today - 1)
         get :index_today
-        expect(response).to redirect_to todos_previous_day_path
+        expect(response).to redirect_to previous_path
       end
 
       it 'assigns @todo' do
@@ -114,7 +114,7 @@ RSpec.describe TodosController, type: :controller do
         before { post :create, todo: Fabricate.attributes_for(:todo) }
 
         it 'redirects to todos_today page' do
-          expect(response).to redirect_to todos_today_path
+          expect(response).to redirect_to today_path
         end
 
         it 'creates a todo' do
@@ -130,7 +130,7 @@ RSpec.describe TodosController, type: :controller do
         before { post :create, todo: { title: nil } }
 
         it 'redirects to todos_today page' do
-          expect(response).to redirect_to todos_today_path
+          expect(response).to redirect_to today_path
         end
 
         it 'does not create a todo' do
@@ -138,7 +138,7 @@ RSpec.describe TodosController, type: :controller do
         end
 
         it 'shows the error message' do
-          expect(flash[:error]).to eq('Input title please.')
+          expect(flash[:danger]).to eq('Input title please.')
         end
       end
     end
@@ -155,12 +155,12 @@ RSpec.describe TodosController, type: :controller do
     context 'with authenticated users' do
       before do
         set_current_user(navy)
-        request.env['HTTP_REFERER'] = todos_today_path
+        request.env['HTTP_REFERER'] = today_path
         delete :destroy, id: cook_dinner
       end
 
       it 'redirects to original page' do
-        expect(response).to redirect_to todos_today_path
+        expect(response).to redirect_to today_path
       end
 
       it 'deletes the todo' do
@@ -180,12 +180,12 @@ RSpec.describe TodosController, type: :controller do
     context 'with authenticated users' do
       before do
         set_current_user(navy)
-        request.env['HTTP_REFERER'] = todos_today_path
+        request.env['HTTP_REFERER'] = today_path
         patch :update, id: cook_dinner, format: 'completed'
       end
 
       it 'redirects to the original page' do
-        expect(response).to redirect_to todos_today_path
+        expect(response).to redirect_to today_path
       end
 
       it "changes todo's status with params" do
@@ -207,12 +207,12 @@ RSpec.describe TodosController, type: :controller do
     context 'with authenticated users' do
       before do
         set_current_user(navy)
-        request.env['HTTP_REFERER'] = todos_previous_day_path
+        request.env['HTTP_REFERER'] = previous_path
         post :copy_to_today, id: cook_dinner, todo: cook_dinner.attributes
       end
 
       it 'redirects to the original page' do
-        expect(response).to redirect_to todos_previous_day_path
+        expect(response).to redirect_to previous_path
       end
 
       it 'copies a todo with same title due to today' do

@@ -17,7 +17,7 @@ feature 'todo processing: previous day' do
     expect(page).to have_content('Process all your todos first.')
 
     # complete(check) a todo
-    visit todos_previous_day_path
+    visit previous_path
     find("a[href='/todos/#{todo_yestoday.id}.completed'][data-method='patch']").click
     expect(page).to have_css('a.glyphicon-check')
     expect(Todo.find(todo_yestoday[:id])[:status]).to eq('completed')
@@ -43,7 +43,7 @@ feature 'todo processing: previous day' do
     expect(Summary.first[:description]).to eq('Well Done.')
 
     # update summary description
-    visit todos_previous_day_path
+    visit previous_path
     fill_in 'Description', with: 'Description Changed.'
     click_button 'Submit'
     expect(page).to have_content('Todos for Today')

@@ -1,8 +1,44 @@
-%section.site_title
-  %h1
-    Concentrated for todos TODAY!
-    = link_to "Sign Up Now!", sign_up_path
-  %p.sign_up
-  %p.sign_in
-    Have an account? Please
-    = link_to "Sign In", sign_in_path
+%h1.title
+  DUE
+  %span.date Today
+  .sub_title Get Things Done, TODAY!
+#todo_items_wrapper
+  .row
+    .icon_left
+      %i.glyphicon.glyphicon-check{:style => 'opacity: 0.6;'}
+    .todo_title
+      %p{:style => 'opacity: 0.6;'}
+        %strike= '[Try DueToday] Visit Home Page'
+    .icon_right
+      %i.glyphicon.glyphicon-trash{:style => 'opacity: 0.6;'}
+  .row
+    .icon_left
+      = link_to '' do
+        %i.glyphicon.glyphicon-unchecked
+    .todo_title
+      %p= '[Try DueToday] Sign Up for Try'
+    .icon_right
+      = link_to '' do
+        %i.glyphicon.glyphicon-trash
+  .row
+    .icon_left
+      = link_to '' do
+        %i.glyphicon.glyphicon-unchecked
+    .todo_title
+      %p= '[Try DueToday] Sign In'
+    .icon_right
+      = link_to '' do
+        %i.glyphicon.glyphicon-trash
+  .row
+    .icon_left
+      = link_to '' do
+        %i.glyphicon.glyphicon-unchecked
+    .todo_title
+      %p= '[Try DueToday] Play Around'
+    .icon_right
+      = link_to '' do
+        %i.glyphicon.glyphicon-trash
+  #form
+    %a.btn.btn-default{:href => '/sign_up', :role => "button"} Sign Up Now!
+.links
+  = link_to "Sign In", sign_in_path

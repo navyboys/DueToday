@@ -1,5 +1,5 @@
-= render 'shared/content_title', title: 'Sign Up'
-.well
+%h2.title Sign Up
+#sign-in-form
   = bootstrap_form_for(@user) do |f|
     = f.email_field :email
     = f.password_field :password
