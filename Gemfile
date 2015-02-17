@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.1'
-gem 'sqlite3'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -31,6 +30,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'pry'
   gem 'rubocop', require: false
   gem 'rubocop-rspec'
@@ -38,4 +38,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'fabrication'
   gem 'faker'
+end
+
+group :production do
+  gem 'pg'
 end

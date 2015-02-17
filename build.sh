@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bundle install
+bundle install --without production
 if [ $? -ne 0 ]; then
   echo 'bundle install error!'
   exit 1
