@@ -4,7 +4,7 @@
     .day
       %p= date.due
       .row
-        .col-md-6
+        .col-md-8
           %ul
             - current_user.todos.where(due: date.due).each do |todo|
               %li
@@ -15,7 +15,7 @@
                 - else
                   %span{:class => 'glyphicon glyphicon-unchecked'}
                 = todo.title
-        .col-md-6
+        .col-md-4
           .comment
             - current_user.summaries.where(date: date.due).each do |summary|
               %p= summary.description
