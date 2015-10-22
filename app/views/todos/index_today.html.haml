@@ -2,7 +2,7 @@
   Todos due
   %span.date Today
 #todo_items_wrapper
-  - current_user.todos.where(due: Date.today).each do |todo|
+  - current_user.todos.where(due: Date.today).order(:created_at).each do |todo|
     .row
       - if todo.completed?
         .icon_left

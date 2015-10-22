@@ -15,13 +15,13 @@ class User < ActiveRecord::Base
 
   def active_days(date_from, date_to)
     if date_from.blank? && date_to.blank?
-      todos.select('DUE').group('DUE')
+      todos.select('DUE').group('DUE').order(due: :desc)
     elsif date_from.blank?
-      todos.select('DUE').group('DUE').where('DUE <= ?', date_to)
+      todos.select('DUE').group('DUE').where('DUE <= ?', date_to).order(due: :desc)
     elsif date_to.blank?
-      todos.select('DUE').group('DUE').where('DUE >= ?', date_from)
+      todos.select('DUE').group('DUE').where('DUE >= ?', date_from).order(due: :desc)
     else
-      todos.select('DUE').group('DUE').where(due: date_from..date_to)
+      todos.select('DUE').group('DUE').where(due: date_from..date_to).order(due: :desc)
     end
   end
 
