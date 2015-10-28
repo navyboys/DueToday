@@ -36,5 +36,24 @@ RSpec.describe UsersController, type: :controller do
         expect(response).to render_template :new
       end
     end
+
+    context 'sending emails' do
+      after { ActionMailer::Base.deliveries.clear }
+
+      it 'sends out email to the user with valid inputs' do
+        post :create, user: { email: 'leon@example.com', password: 'password', name: 'Leon Zheng' }
+        expect(ActionMailer::Base.deliveries.last.to).to eq(['leon@example.com'])
+      end
+
+      it "sends out email containing the user's name with valid inputs" do
+        post :create, user: { email: 'leon@example.com', password: 'password', name: 'Leon Zheng' }
+        expect(ActionMailer::Base.deliveries.last.body).to include('Leon Zheng')
+      end
+
+      it 'does not send out email with invalid inputs' do
+        post :create, user: { email: 'leon@example.com' }
+        expect(ActionMailer::Base.deliveries).to be_empty
+      end
+    end
   end
 end
