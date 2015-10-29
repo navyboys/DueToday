@@ -14,6 +14,7 @@ gem 'bootstrap_form'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'haml'
 gem 'kaminari'
+gem 'sidekiq'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'

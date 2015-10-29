@@ -46,6 +46,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    celluloid (0.15.2)
+      timers (~> 1.1.0)
     code_analyzer (0.4.5)
       sexp_processor
     coderay (1.1.0)
@@ -57,6 +59,7 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     colored (1.2)
+    connection_pool (1.1.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
     erubis (2.7.0)
@@ -139,6 +142,9 @@ GEM
     rake (10.4.1)
     rdoc (4.1.2)
       json (~> 1.4)
+    redis (3.0.5)
+    redis-namespace (1.3.1)
+      redis (~> 3.0.0)
     require_all (1.3.2)
     rspec-core (3.1.7)
       rspec-support (~> 3.1.0)
@@ -176,6 +182,12 @@ GEM
     sexp_processor (4.4.4)
     shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
+    sidekiq (2.15.2)
+      celluloid (>= 0.15.2)
+      connection_pool (>= 1.0.0)
+      json
+      redis (>= 3.0.4)
+      redis-namespace (>= 1.3.1)
     simplecov (0.9.1)
       docile (~> 1.1.0)
       multi_json (~> 1.0)
@@ -196,6 +208,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    timers (1.1.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -238,6 +251,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   shoulda-matchers
+  sidekiq
   simplecov
   spring
   sqlite3

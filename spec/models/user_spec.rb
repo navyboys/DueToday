@@ -40,22 +40,22 @@ RSpec.describe User, type: :model do
 
     it 'returns all active days between the from and to date when both exsit in chronological order' do
       active_due_days = get_due_days(navy.active_days(today - 8, today - 1))
-      expect(active_due_days).to eq([todo_last_week.due, todo_yestoday.due])
+      expect(active_due_days).to eq([todo_yestoday.due, todo_last_week.due])
     end
 
     it 'returns all active days when from and to are both missing' do
       active_due_days = get_due_days(navy.active_days('', ''))
-      expect(active_due_days).to eq([todo_last_week.due, todo_yestoday.due, todo_today.due])
+      expect(active_due_days).to eq([todo_today.due, todo_yestoday.due, todo_last_week.due])
     end
 
     it 'returns active days before the to date when from is missing' do
       active_due_days = get_due_days(navy.active_days('', today - 1))
-      expect(active_due_days).to eq([todo_last_week.due, todo_yestoday.due])
+      expect(active_due_days).to eq([todo_yestoday.due, todo_last_week.due])
     end
 
     it 'returns active days after the from date when to is missing' do
       active_due_days = get_due_days(navy.active_days(today - 6, ''))
-      expect(active_due_days).to eq([todo_yestoday.due, todo_today.due])
+      expect(active_due_days).to eq([todo_today.due, todo_yestoday.due])
     end
 
     it 'returns blank array when the user has no todo' do

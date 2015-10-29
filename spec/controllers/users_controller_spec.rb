@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'sidekiq/testing'
+Sidekiq::Testing.inline!
 
 RSpec.describe UsersController, type: :controller do
   describe 'GET new' do
