@@ -16,6 +16,7 @@ gem 'haml'
 gem 'kaminari'
 gem 'sidekiq'
 gem 'unicorn'
+gem 'sentry-raven'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'
