@@ -12,9 +12,9 @@ feature 'todo processing: today' do
     expect(page).to have_content buy_ticket[:title]
 
     # add a todo
-    fill_in 'todo_title', with: 'Visit School'
+    fill_in 'todo_title', with: 'Cook Dinner'
     click_button 'Add'
-    expect(page).to have_content 'Visit School'
+    expect(page).to have_content 'Cook Dinner'
 
     # complete(check) a todo
     find("a[href='/todos/#{visit_clinic.id}.completed'][data-method='patch']").click
