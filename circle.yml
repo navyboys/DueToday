@@ -14,6 +14,7 @@ deployment:
     branch: staging
     commands:
       - heroku maintenance:on --app duetoday-staging
+      - git fetch origin --unshallow
       - git push git@heroku.com:duetoday-staging.git $CIRCLE_SHA1:refs/heads/master
       - heroku run rake db:migrate --app duetoday-staging
       - heroku maintenance:off --app duetoday-staging
