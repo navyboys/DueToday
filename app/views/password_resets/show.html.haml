@@ -1,0 +1,6 @@
+%h2.title Reset Your Password
+#sign-in-form
+  = bootstrap_form_tag url: password_resets_path do |f|
+    = f.password_field :password, label: 'New Password'
+    = f.hidden_field :token, value: @token
+    = f.submit 'Reset'
