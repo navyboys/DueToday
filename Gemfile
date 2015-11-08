@@ -31,6 +31,7 @@ group :test do
   gem 'shoulda-matchers', require: false
   gem 'simplecov', require: false
   gem 'capybara'
+  gem 'capybara-email'
   gem 'launchy'
 end
 

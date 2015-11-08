@@ -1,6 +1,8 @@
 %h2.title Sign In
-#sign-in-form
+#fill-in-form
   = bootstrap_form_tag url: '/sessions' do |f|
     = f.email_field :email
     = f.password_field :password
     = f.submit 'Sign In'
+    = link_to 'Forgot Password?', forgot_password_path
+
