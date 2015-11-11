@@ -21,8 +21,10 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:notice] = 'Your profile was updated.'
+      redirect_to :back
+    else
+      render :edit
     end
-    render :edit
   end
 
   private
