@@ -1,7 +1,2 @@
 %h2.title Sign Up
-#fill-in-form
-  = bootstrap_form_for(@user) do |f|
-    = f.email_field :email
-    = f.password_field :password
-    = f.text_field :name
-    = f.submit 'Sign Up'
+= render 'form'
