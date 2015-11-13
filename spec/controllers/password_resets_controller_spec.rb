@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe PasswordResetsController, type: :controller do
   describe 'GET show' do
     it 'renders show template if the token is valid' do
-      leon = Fabricate(:user, token: '12345')
+      navy = Fabricate(:user, token: '12345')
       get :show, id: '12345'
       expect(response).to render_template :show
     end
 
     it 'set @token' do
-      leon = Fabricate(:user, token: '12345')
+      navy = Fabricate(:user, token: '12345')
       get :show, id: '12345'
       expect(assigns(:token)).to eq('12345')
     end
@@ -22,9 +22,9 @@ RSpec.describe PasswordResetsController, type: :controller do
 
   describe 'POST create' do
     context 'with valid token' do
-      let(:leon) { Fabricate(:user, password: 'old_password') }
+      let(:navy) { Fabricate(:user, password: 'old_password') }
       before do
-        leon.update_column(:token, '12345')
+        navy.update_column(:token, '12345')
         post :create, token: '12345', password: 'new_password'
       end
 
@@ -33,7 +33,7 @@ RSpec.describe PasswordResetsController, type: :controller do
       end
 
       it "update the user's password" do
-        expect(leon.reload.authenticate('new_password')).to be_truthy
+        expect(navy.reload.authenticate('new_password')).to be_truthy
       end
 
       it 'sets the flash success message' do
@@ -41,7 +41,7 @@ RSpec.describe PasswordResetsController, type: :controller do
       end
 
       it 'delete the user token' do
-        expect(leon.reload.token).to be_nil
+        expect(navy.reload.token).to be_nil
       end
     end
 

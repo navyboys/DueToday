@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update]
+  before_action :require_user, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -19,9 +20,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
-      flash[:notice] = 'Your profile was updated.'
-      redirect_to :back
+    if @user.update_attributes(user_params)
+      flash[:info] = 'Your profile was updated.'
+      redirect_to today_path
     else
       render :edit
     end
@@ -34,6 +35,6 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find params[:id]
   end
 end

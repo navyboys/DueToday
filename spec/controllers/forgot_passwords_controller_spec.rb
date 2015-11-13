@@ -18,8 +18,8 @@ RSpec.describe ForgotPasswordsController, type: :controller do
 
     context 'with existing email' do
       before do
-        Fabricate(:user, email: 'leon@duetoday.com')
-        post :create, email: 'leon@duetoday.com'
+        Fabricate(:user, email: 'navy@duetoday.com')
+        post :create, email: 'navy@duetoday.com'
       end
       after { ActionMailer::Base.deliveries.clear }
 
@@ -28,7 +28,7 @@ RSpec.describe ForgotPasswordsController, type: :controller do
       end
 
       it 'sends out an email to the email address' do
-        expect(ActionMailer::Base.deliveries.last.to).to eq(['leon@duetoday.com'])
+        expect(ActionMailer::Base.deliveries.last.to).to eq(['navy@duetoday.com'])
       end
     end
 
