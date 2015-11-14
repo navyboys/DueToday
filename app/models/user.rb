@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   has_secure_password
 
   def previous_day
-    lastest_todo_before_today = todos.where('DUE < ?', Date.today).order(due: :desc).first
+    today_in_time_zone = Time.now.in_time_zone(time_zone).to_date
+    lastest_todo_before_today = todos.where('DUE < ?', today_in_time_zone).order(due: :desc).first
     lastest_todo_before_today ? lastest_todo_before_today.due : nil
   end
 

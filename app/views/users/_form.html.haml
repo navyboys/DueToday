@@ -3,4 +3,5 @@
     = f.email_field :email, readonly: user.new_record? ? false : true
     = f.password_field :password
     = f.text_field :name
+    = f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones
     = f.submit user.new_record? ? 'Sign Up' : 'Update'

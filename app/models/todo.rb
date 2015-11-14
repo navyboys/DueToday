@@ -8,7 +8,7 @@ class Todo < ActiveRecord::Base
   def copy_to_today
     todo_copy = dup
     todo_copy.status = 'open'
-    todo_copy.due = Date.today
+    todo_copy.due = Time.now.in_time_zone(user.time_zone).to_date
     todo_copy.save
   end
 
@@ -24,6 +24,6 @@ class Todo < ActiveRecord::Base
 
   def set_default_value
     self.status = 'open' if status.blank?
-    self.due = Date.today if due.blank?
+    self.due = Time.now.in_time_zone(user.time_zone).to_date if due.blank?
   end
 end

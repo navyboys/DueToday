@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151106235125) do
+ActiveRecord::Schema.define(version: 20151114190744) do
 
   create_table "summaries", force: true do |t|
     t.integer  "user_id"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20151106235125) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "token"
+    t.string   "time_zone"
   end
 
 end
