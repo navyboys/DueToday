@@ -2,21 +2,27 @@ require 'rails_helper'
 
 RSpec.describe PasswordResetsController, type: :controller do
   describe 'GET show' do
-    it 'renders show template if the token is valid' do
-      navy = Fabricate(:user, token: '12345')
-      get :show, id: '12345'
-      expect(response).to render_template :show
+    context 'with valid token' do
+      before do
+        navy = Fabricate(:user)
+        navy.update_column(:token, '12345')
+        get :show, id: '12345'
+      end
+
+      it 'renders show template' do
+        expect(response).to render_template :show
+      end
+
+      it 'set @token' do
+        expect(assigns(:token)).to eq('12345')
+      end
     end
 
-    it 'set @token' do
-      navy = Fabricate(:user, token: '12345')
-      get :show, id: '12345'
-      expect(assigns(:token)).to eq('12345')
-    end
-
-    it 'redirects to the expired token page if the token is not valid' do
-      get :show, id: '12345'
-      expect(response).to redirect_to expired_token_path
+    context 'with invalid token' do
+      it 'redirects to the expired token page' do
+        get :show, id: '12345'
+        expect(response).to redirect_to expired_token_path
+      end
     end
   end
 

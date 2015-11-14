@@ -1,6 +1,6 @@
 #fill-in-form
-  = bootstrap_form_for(@user) do |f|
-    = f.email_field :email, readonly: @user.new_record? ? false : true
+  = bootstrap_form_for(user) do |f|
+    = f.email_field :email, readonly: user.new_record? ? false : true
     = f.password_field :password
     = f.text_field :name
-    = f.submit @user.new_record? ? 'Sign Up' : 'Update'
+    = f.submit user.new_record? ? 'Sign Up' : 'Update'

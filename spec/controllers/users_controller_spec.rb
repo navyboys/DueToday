@@ -85,13 +85,13 @@ RSpec.describe UsersController, type: :controller do
 
       context 'update failed' do
         it 'redirects to edit page when error occurs' do
-          patch :update, id: navy.id, user: { name: '', password: ''}
+          patch :update, id: navy.id, user: { name: '', password: '' }
           expect(response).to render_template :edit
         end
       end
 
       context 'update successfully' do
-        before { patch :update, id: navy.id, user: { name: 'new_name', password: 'new_password'} }
+        before { patch :update, id: navy.id, user: { name: 'new_name', password: 'new_password' } }
 
         it 'shows notice message when successfully updated' do
           expect(flash[:info]).to eq('Your profile was updated.')
@@ -113,7 +113,7 @@ RSpec.describe UsersController, type: :controller do
 
     it_behaves_like 'requires sign in' do
       let(:action) do
-        patch :update, id: navy.id, user: { name: 'new_name', password: 'new_password'}
+        patch :update, id: navy.id, user: { name: 'new_name', password: 'new_password' }
       end
     end
   end
