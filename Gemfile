@@ -18,7 +18,7 @@ gem 'sidekiq'
 gem 'unicorn'
 gem 'sentry-raven'
 gem 'paperclip'
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'
