@@ -98,7 +98,7 @@ RSpec.describe UsersController, type: :controller do
         end
 
         it 'redirects to todos due today page' do
-          expect(response).to redirect_to today_path
+          expect(response).to redirect_to profile_path
         end
 
         it 'changes name with params' do

@@ -2,14 +2,12 @@
   .pull-right
     .dropdown
       %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
-        #{current_user.name}
+        = image_tag current_user.avatar.url(:thumb)
         %b.caret
       %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
         %li
-          = link_to edit_user_path(current_user) do
-            %i.glyphicon.glyphicon-pencil
+          = link_to profile_path do
             Edit Profile
         %li
           = link_to sign_out_path do
-            %i.glyphicon.glyphicon-circle-arrow-left
             Sign Out

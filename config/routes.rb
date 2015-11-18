@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   resources :forgot_passwords, only: [:create]
   resources :password_resets, only: [:show, :create]
 
-  resources :users, only: [:create, :edit, :update]
+  resources :users, only: [:create, :update]
+  get 'profile', to: 'users#edit'
+
   resources :sessions, only: [:create]
   resources :summaries, only: [:create, :update]
 

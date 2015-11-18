@@ -18,9 +18,9 @@ feature 'user authentication' do
     fill_in 'Email', with: navy[:email]
     fill_in 'Password', with: navy[:password]
     click_button 'Sign In'
-    expect(page).to have_content navy[:name]
+    expect(page).to have_content 'Todos due Today'
 
     click_link 'Sign Out'
-    expect(page).to have_no_content navy[:name]
+    expect(page).to have_content 'Sign In'
   end
 end

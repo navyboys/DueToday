@@ -17,6 +17,8 @@ gem 'kaminari'
 gem 'sidekiq'
 gem 'unicorn'
 gem 'sentry-raven'
+gem 'paperclip'
+gem 'aws-sdk'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'

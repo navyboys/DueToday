@@ -18,6 +18,6 @@ feature 'User resets password' do
     fill_in 'email', with: navy.email
     fill_in 'password', with: 'new_password'
     click_button 'Sign In'
-    expect(page).to have_content(navy.name)
+    expect(page).to have_content 'Todos due Today'
   end
 end

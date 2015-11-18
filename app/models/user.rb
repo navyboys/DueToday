@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+  has_attached_file :avatar, styles: { thumb: '20x20#', medium: '200x200#' }, default_url: '/images/:style/missing.png'
+
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
   def previous_day
     today_in_time_zone = Time.now.in_time_zone(time_zone).to_date
     lastest_todo_before_today = todos.where('DUE < ?', today_in_time_zone).order(due: :desc).first
