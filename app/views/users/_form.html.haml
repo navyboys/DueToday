@@ -6,7 +6,7 @@
     = f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones
     - unless user.new_record?
       = f.file_field :avatar
-      = image_tag user.avatar.url(:medium)
+      = image_tag user.avatar.url(:medium, timestamp:false)
       %br
     %br
     = f.submit user.new_record? ? 'Sign Up' : 'Update'

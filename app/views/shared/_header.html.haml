@@ -2,7 +2,7 @@
   .pull-right
     .dropdown
       %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
-        = image_tag current_user.avatar.url(:thumb)
+        = image_tag current_user.avatar.url(:thumb, timestamp:false)
         %b.caret
       %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
         %li
