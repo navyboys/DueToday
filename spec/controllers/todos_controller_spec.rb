@@ -13,9 +13,16 @@ RSpec.describe TodosController, type: :controller do
         expect(response).to redirect_to previous_path
       end
 
-      it 'assigns @todo' do
+      it 'assigns @todos' do
+        visit_school = Fabricate(:todo, user: navy, due: navy.today, created_at: Time.now - 600)
+        cook_dinner = Fabricate(:todo, user: navy, due: navy.today, created_at: Time.now)
         get :index_today
-        expect(assigns(:todo)).to be_a_new(Todo)
+        expect(assigns(:todos)).to eq([visit_school, cook_dinner])
+      end
+
+      it 'assigns @new_todo' do
+        get :index_today
+        expect(assigns(:new_todo)).to be_a_new(Todo)
       end
     end
 
@@ -27,7 +34,7 @@ RSpec.describe TodosController, type: :controller do
   describe 'GET index_previous_day' do
     context 'with authenticated users' do
       let(:navy) { Fabricate(:user) }
-      let(:yestoday) { Date.today - 1 }
+      let(:previous_day) { navy.previous_day }
 
       before { set_current_user(navy) }
 
@@ -36,9 +43,16 @@ RSpec.describe TodosController, type: :controller do
         expect(assigns(:summary)).to be_a_new(Summary)
       end
 
+      it 'assigns @todos' do
+        visit_school = Fabricate(:todo, user: navy, due: navy.previous_day, created_at: Time.now - 600)
+        cook_dinner = Fabricate(:todo, user: navy, due: navy.previous_day, created_at: Time.now)
+        get :index_today
+        expect(assigns(:todos)).to eq([visit_school, cook_dinner])
+      end
+
       it "assigns @summary to the day's summary when it is exsit" do
-        Fabricate(:todo, user: navy, due: yestoday)
-        previous_summary = Fabricate(:summary, user: navy, date: yestoday, description: 'A bad day.')
+        Fabricate(:todo, user: navy, due: previous_day)
+        previous_summary = Fabricate(:summary, user: navy, date: previous_day, description: 'A bad day.')
         get :index_previous_day
         expect(assigns(:summary)).to eq(previous_summary)
       end

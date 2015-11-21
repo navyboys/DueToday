@@ -2,16 +2,19 @@ class TodosController < ApplicationController
   before_action :require_user
 
   def index_today
+    @todos = current_user.todos.where(due: current_user.today).order(:created_at)
     if current_user.day_job_processed?(current_user.previous_day)
-      @todo = Todo.new
+      @new_todo = Todo.new
     else
       redirect_to previous_path
     end
   end
 
   def index_previous_day
-    if current_user.summaries.where(date: current_user.previous_day).count != 0
-      @summary = current_user.summaries.where(date: current_user.previous_day).first
+    previous_day = current_user.previous_day
+    @todos = current_user.todos.where(due: previous_day).order(:created_at)
+    if current_user.summaries.where(date: previous_day).count != 0
+      @summary = current_user.summaries.where(date: previous_day).first
     else
       @summary = Summary.new
     end

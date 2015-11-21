@@ -9,15 +9,22 @@ RSpec.describe User, type: :model do
   it { should have_many(:todos) }
   it { should have_many(:summaries) }
 
+  describe '#today' do
+    it "returns the date of the user's time zone" do
+      navy = Fabricate :user
+      today = Time.now.in_time_zone(navy.time_zone).to_date
+      expect(navy.today).to eq(today)
+    end
+  end
+
   describe '#previous_day' do
     let(:navy) { Fabricate(:user) }
-    let(:today) { Date.today }
+    let(:today) { navy.today }
 
     it "returns the last todo's due date except today" do
-      todo_previous_day = Fabricate(:todo, user: navy)
-      todo_previous_day.update_attribute(:due, today - 2)
-      Fabricate(:todo, user: navy)
-      expect(navy.previous_day).to eq(today - 2)
+      Fabricate(:todo, user: navy, due: navy.today - 2)
+      Fabricate(:todo, user: navy, due: navy.today)
+      expect(navy.previous_day).to eq(navy.today - 2)
     end
 
     it "returns nil when there's no todo before today" do

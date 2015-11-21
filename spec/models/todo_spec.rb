@@ -48,7 +48,7 @@ RSpec.describe Todo, type: :model do
     end
 
     it 'creates a todo due to today' do
-      expect(described_class.last.due).to eq(Date.today)
+      expect(described_class.last.due).to eq(navy.today)
     end
 
     it 'creates a open todo' do
