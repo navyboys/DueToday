@@ -19,6 +19,8 @@ gem 'unicorn'
 gem 'sentry-raven'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
+gem 'stripe'
+gem 'figaro'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'

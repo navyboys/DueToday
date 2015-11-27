@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create]
   resources :summaries, only: [:create, :update]
 
+  resources :charges, only: [:new, :create]
+
   resources :todos, only: [:create, :update, :destroy]
   get 'today', to: 'todos#index_today'
   get 'previous', to: 'todos#index_previous_day'

@@ -1,0 +1,10 @@
+%h2.title Donate
+.row
+  .col-sm-2
+  .col-sm-8{:align => "center"}
+    %h4 Your donation will help us make DueToday even better.
+    = form_tag charges_path do
+      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key=#{ENV['STRIPE_PUBISHABLE_KEY']} data-image="/images/medium/missing.png" data-name="DueToday" data-email=#{current_user.email} data-description="Get Things Done, TODAY!" data-amount="100" data-locale="auto">
+      </script>
+.links
+  = link_to 'Back to Today', today_path

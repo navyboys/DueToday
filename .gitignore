@@ -19,3 +19,4 @@ vender/bundle
 test_reports
 *.DS_Store
 dump.rdb
+/config/application.yml
