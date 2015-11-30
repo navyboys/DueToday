@@ -5,11 +5,10 @@ class ChargesController < ApplicationController
   end
 
   def create
-    Stripe::Charge.create(
+    StripeWrapper::Charge.create(
       card:        params[:stripeToken],
       amount:      100,
-      description: 'Donation form DueToday user: #{current_user.email}',
-      currency:    'usd'
+      description: "DueToday user: #{current_user.email}"
     )
   end
 end
