@@ -5,7 +5,7 @@ RSpec.describe SummariesController, type: :controller do
     let(:navy) { Fabricate(:user) }
 
     context 'with authenticated users' do
-      let(:date) { Date.today - 1 }
+      let(:date) { navy.today - 1 }
       let(:params) do
         {
           user: navy,
@@ -63,7 +63,7 @@ RSpec.describe SummariesController, type: :controller do
 
   describe 'PATCH update' do
     let(:navy) { Fabricate(:user) }
-    let(:summary_yestoday) { Fabricate(:summary, user: navy, date: Date.today - 1) }
+    let(:summary_yestoday) { Fabricate(:summary, user: navy, date: navy.today - 1) }
 
     context 'with authenticated users' do
       before do

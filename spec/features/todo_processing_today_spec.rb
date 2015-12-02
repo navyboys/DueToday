@@ -3,8 +3,8 @@ require 'rails_helper'
 feature 'todo processing: today' do
   scenario 'show, add, complete and delete todos' do
     navy = Fabricate(:user)
-    visit_clinic = Fabricate(:todo, user: navy)
-    buy_ticket = Fabricate(:todo, user: navy)
+    visit_clinic = Fabricate(:todo, user: navy, due: navy.today)
+    buy_ticket = Fabricate(:todo, user: navy, due: navy.today)
 
     # show todos
     sign_in(navy)
