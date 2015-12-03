@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'User donates' do
   scenario 'user successfully charges through stripe checkout', js: true, vcr: true do
-    navy = Fabricate(:user)
+    navy = Fabricate(:user, email: 'navyboys@gmail.com')
 
     sign_in(navy)
     visit new_charge_path
@@ -12,7 +12,6 @@ feature 'User donates' do
 
     stripe_iframe = all('iframe[name=stripe_checkout_app]').last
     Capybara.within_frame stripe_iframe do
-      Stripe.api_key = 'sk_test_yENZrfNUuVXFshfe9yOkatfu'
       4.times { page.driver.browser.find_element(:id, 'card_number').send_keys('4242') }
       page.driver.browser.find_element(:id, 'cc-exp').send_keys '5'
       page.driver.browser.find_element(:id, 'cc-exp').send_keys '18'
