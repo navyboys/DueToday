@@ -2,6 +2,7 @@ require 'rails_helper'
 
 feature 'User donates' do
   scenario 'user successfully charges through stripe checkout', js: true, vcr: true do
+    Stripe.api_key = 'sk_test_yENZrfNUuVXFshfe9yOkatfu'
     navy = Fabricate(:user)
 
     sign_in(navy)
