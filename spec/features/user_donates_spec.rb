@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'User donates' do
   scenario 'user successfully charges through stripe checkout', js: true, vcr: true do
-    navy = Fabricate(:user, email: 'navyboys@gmail.com')
+    navy = Fabricate(:user)
 
     sign_in(navy)
     visit new_charge_path
