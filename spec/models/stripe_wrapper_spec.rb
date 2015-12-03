@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe StripeWrapper, type: :model do
+  Stripe.api_key = 'sk_test_yENZrfNUuVXFshfe9yOkatfu'
+
   let(:valid_token) do
     Stripe::Token.create(
       card: {
