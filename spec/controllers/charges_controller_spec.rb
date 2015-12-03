@@ -16,7 +16,7 @@ RSpec.describe ChargesController, type: :controller do
   end
 
   describe 'POST create' do
-    it 'render create template', :vcr do
+    it 'render create template' do
       set_current_user(Fabricate(:user))
       allow(StripeWrapper::Charge).to receive(:create)
       post :create

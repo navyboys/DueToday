@@ -25,9 +25,9 @@ RSpec.describe StripeWrapper, type: :model do
     ).id
   end
 
-  describe StripeWrapper::Charge do
+  describe StripeWrapper::Charge, :vcr do
     describe '.create' do
-      it 'makes a successful charge', :vcr do
+      it 'makes a successful charge' do
         response = StripeWrapper::Charge.create(
           amount: 999,
           card: valid_token,
@@ -36,7 +36,7 @@ RSpec.describe StripeWrapper, type: :model do
         expect(response).to be_successful
       end
 
-      it 'makes a card declined charge', :vcr do
+      it 'makes a card declined charge' do
         response = StripeWrapper::Charge.create(
           amount: 999,
           card: declined_card_token,
@@ -45,7 +45,7 @@ RSpec.describe StripeWrapper, type: :model do
         expect(response).not_to be_successful
       end
 
-      it 'returns the error message for declined charges', :vcr do
+      it 'returns the error message for declined charges' do
         response = StripeWrapper::Charge.create(
           amount: 999,
           card: declined_card_token,
