@@ -79,6 +79,19 @@ GEM
     database_cleaner (1.4.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    elasticsearch (1.0.15)
+      elasticsearch-api (= 1.0.15)
+      elasticsearch-transport (= 1.0.15)
+    elasticsearch-api (1.0.15)
+      multi_json
+    elasticsearch-model (0.1.8)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-rails (0.1.8)
+    elasticsearch-transport (1.0.15)
+      faraday
+      multi_json
     erubis (2.7.0)
     execjs (2.2.2)
     fabrication (2.11.3)
@@ -91,6 +104,7 @@ GEM
       thor (~> 0.14)
     haml (4.0.6)
       tilt
+    hashie (3.4.3)
     hike (1.2.3)
     i18n (0.6.11)
     jbuilder (2.2.5)
@@ -293,6 +307,8 @@ DEPENDENCIES
   capybara-email
   coffee-rails (~> 4.0.0)
   database_cleaner
+  elasticsearch-model
+  elasticsearch-rails
   fabrication
   faker
   figaro

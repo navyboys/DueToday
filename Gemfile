@@ -21,6 +21,8 @@ gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'stripe'
 gem 'figaro'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'
