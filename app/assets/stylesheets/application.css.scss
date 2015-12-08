@@ -191,14 +191,14 @@ input[type="text"] {
   }
 }
 
-#condition_form {
+#search_form {
   text-align: center;
   color: $dark;
   margin: 1em 0;
   label {
     margin-right: 10;
   }
-  input[type="date"], input[type="search"] {
+  input[type="date"] {
     margin-right: 5;
     color: $dark;
     display: inline-block;
@@ -207,9 +207,6 @@ input[type="text"] {
     height: 40px;
     border-radius: 4px;
     padding: 1em 2em;
-  }
-  input[type="search"] {
-    width: 25em;
   }
   ::-webkit-input-placeholder { color: $dark; }
 }
@@ -230,7 +227,7 @@ input[type="submit"] {
   }
 }
 
-#history-list, #search-results {
+#history-list {
   margin: 2% 5% 2% 5%;
   color: $dark;
   .day {

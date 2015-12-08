@@ -27,7 +27,7 @@ feature 'todo processing: today' do
     expect(Todo.count).to eq(2)
 
     # link to history page
-    click_link 'History'
+    click_link 'Show History'
     expect(find(:xpath, "//input[@type='submit']").value).to eq('Find')
   end
 end
