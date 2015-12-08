@@ -25,7 +25,7 @@ class TodosController < ApplicationController
   end
 
   def search
-    show_histories
+    show_search_results unless params[:commit].blank?
   end
 
   def create
@@ -63,10 +63,29 @@ class TodosController < ApplicationController
     render json: {
       update: {
         'history-list' => render_to_string(
-          partial: 'todos/history_list',
+          partial: 'todos/search_results',
           layout: false,
           locals: {
-            dates: @dates
+            dates: @dates,
+            todos: current_user.todos,
+            summaries: current_user.summaries
+          })
+      }
+    }
+  end
+
+  def show_search_results
+    @todos = Todo.search(params[:query]).records.order(due: :desc)
+    @dates = @todos.select('DUE').group('DUE').page params[:page]
+    render json: {
+      update: {
+        'search-results' => render_to_string(
+          partial: 'todos/search_results',
+          layout: false,
+          locals: {
+            todos: @todos,
+            dates: @dates,
+            summaries: current_user.summaries
           })
       }
     }

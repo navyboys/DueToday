@@ -64,9 +64,15 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe 'GET history' do
+    it_behaves_like 'requires sign in' do
+      let(:action) { get :history }
+    end
+  end
+
+  describe 'POST history' do
     context 'with authenticated users' do
       let(:navy) { Fabricate(:user) }
-      let(:today) { Date.today }
+      let(:today) { navy.today }
       let(:params) do
         {
           commit: 'Find',
@@ -81,34 +87,7 @@ RSpec.describe TodosController, type: :controller do
       end
 
       it 'assigns @dates' do
-        get :history, params
-        expect(get_due_days(assigns(:dates))).to eq([today])
-      end
-    end
-
-    it_behaves_like 'requires sign in' do
-      let(:action) { get :history }
-    end
-  end
-
-  describe 'POST search' do
-    context 'with authenticated users' do
-      let(:navy) { Fabricate(:user) }
-      let(:today) { Date.today }
-      let(:params) do
-        {
-          from: today - 1,
-          to: today
-        }
-      end
-
-      before do
-        set_current_user(navy)
-        Fabricate(:todo, user: navy)
-      end
-
-      it 'assigns @dates' do
-        post :search, params
+        post :history, params
         expect(get_due_days(assigns(:dates))).to eq([today])
       end
     end

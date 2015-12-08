@@ -10,7 +10,7 @@ feature 'show history' do
     todo_today = Todo.first
 
     sign_in(navy)
-    click_link 'Show History'
+    click_link 'History'
 
     # show history with pagination
     click_button 'Find'

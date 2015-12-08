@@ -1,0 +1,16 @@
+- if dates
+  = paginate dates, remote: true
+  - dates.each do |date|
+    .day
+      %p= date.due
+      .row
+        .col-md-7
+          %ul
+            - todos.where(due: date.due).each do |todo|
+              %li
+                = render 'status_icon', todo: todo
+                = todo.title
+        .col-md-5
+          .comment
+            - summaries.where(date: date.due).each do |summary|
+              %p= summary.description
