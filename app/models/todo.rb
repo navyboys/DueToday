@@ -46,5 +46,3 @@ class Todo < ActiveRecord::Base
     self.due = user.today if due.blank?
   end
 end
-
-Todo.import
