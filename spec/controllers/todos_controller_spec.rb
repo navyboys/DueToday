@@ -83,7 +83,7 @@ RSpec.describe TodosController, type: :controller do
 
       before do
         set_current_user(navy)
-        Fabricate(:todo, user: navy)
+        Fabricate(:todo, user: navy, due: today)
       end
 
       it 'assigns @dates' do
