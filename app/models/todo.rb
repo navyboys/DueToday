@@ -22,7 +22,7 @@ class Todo < ActiveRecord::Base
     status == 'failed'
   end
 
-  def self.search(query)
+  def self.search(query, options = {})
     search_definition = {
       query: {
         multi_match: {
@@ -32,11 +32,20 @@ class Todo < ActiveRecord::Base
         }
       }
     }
+
+    if options[:status_list].present?
+      search_definition[:filter] = {
+        terms: {
+          status: options[:status_list]
+        }
+      }
+    end
+
     __elasticsearch__.search(search_definition)
   end
 
   def as_indexed_json(*)
-    as_json(only: [:title])
+    as_json(only: [:title, :status])
   end
 
   private

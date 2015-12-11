@@ -72,7 +72,7 @@ RSpec.describe Todo, type: :model do
 
     context 'with title' do
       it "returns no results when there's no match" do
-        Fabricate(:todo, title: 'cook dinner')
+        Fabricate(:todo, title: 'Cook Dinner')
         refresh_index
 
         expect(Todo.search('whatever').records.to_a).to eq []
@@ -111,6 +111,31 @@ RSpec.describe Todo, type: :model do
         refresh_index
 
         expect(Todo.search('Visit School').records.to_a).to match_array [visit_school_1, visit_school_2]
+      end
+    end
+
+    context 'filter with status' do
+      let(:visit_school) { Fabricate(:todo, title: 'Visit School') }
+      let(:visit_bank) { Fabricate(:todo, title: 'Visit Bank') }
+      let(:visit_hospital) { Fabricate(:todo, title: 'Visit Hospital') }
+
+      before do
+        visit_school.update status: 'failed'
+        visit_bank.update status: 'completed'
+        visit_hospital.update status: 'completed'
+        refresh_index
+      end
+
+      it 'returns an empty array when there are no matches' do
+        expect(Todo.search('Visit', status_list: ['open']).records.to_a).to eq []
+      end
+
+      it 'returns an array of one video when there is one match' do
+        expect(Todo.search('Visit', status_list: ['failed']).records.to_a).to eq [visit_school]
+      end
+
+      it 'returns an array of many videos when there are multiple matches' do
+        expect(Todo.search('Visit', status_list: %w(completed failed)).records.to_a).to match_array [visit_school, visit_bank, visit_hospital]
       end
     end
   end
