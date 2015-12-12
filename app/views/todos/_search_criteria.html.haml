@@ -1,4 +1,5 @@
 #condition_form
   = bootstrap_form_tag layout: :inline, remote: true do |f|
-    = f.search_field :query, hide_label: true, placeholder: "Search todos by title."
+    = f.search_field :query, hide_label: true, placeholder: 'Search todos by title.'
+    = f.select :status, ['completed', 'failed', 'open'], hide_label: true
     = f.submit 'Search'

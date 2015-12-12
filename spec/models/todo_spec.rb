@@ -127,15 +127,15 @@ RSpec.describe Todo, type: :model do
       end
 
       it 'returns an empty array when there are no matches' do
-        expect(Todo.search('Visit', status_list: ['open']).records.to_a).to eq []
+        expect(Todo.search('Visit', status: 'open').records.to_a).to eq []
       end
 
       it 'returns an array of one video when there is one match' do
-        expect(Todo.search('Visit', status_list: ['failed']).records.to_a).to eq [visit_school]
+        expect(Todo.search('Visit', status: 'failed').records.to_a).to eq [visit_school]
       end
 
       it 'returns an array of many videos when there are multiple matches' do
-        expect(Todo.search('Visit', status_list: %w(completed failed)).records.to_a).to match_array [visit_school, visit_bank, visit_hospital]
+        expect(Todo.search('Visit', status: 'completed').records.to_a).to match_array [visit_bank, visit_hospital]
       end
     end
   end

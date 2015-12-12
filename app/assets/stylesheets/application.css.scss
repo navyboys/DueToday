@@ -198,7 +198,7 @@ input[type="text"] {
   label {
     margin-right: 10;
   }
-  input[type="date"], input[type="search"] {
+  input[type="date"], input[type="search"], select {
     margin-right: 5;
     color: $dark;
     display: inline-block;

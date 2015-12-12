@@ -33,10 +33,10 @@ class Todo < ActiveRecord::Base
       }
     }
 
-    if options[:status_list].present?
+    if options[:status].present?
       search_definition[:filter] = {
-        terms: {
-          status: options[:status_list]
+        term: {
+          status: options[:status]
         }
       }
     end

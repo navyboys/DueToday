@@ -12,6 +12,7 @@ feature 'Todo Search', :elasticsearch do
     click_on 'Search'
 
     fill_in 'query', with: 'Visit School'
+    select 'open', from: '_status'
     click_button 'Search'
 
     expect(page).to have_content('Visit School: Feb 1st')

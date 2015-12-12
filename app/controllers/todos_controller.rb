@@ -75,7 +75,10 @@ class TodosController < ApplicationController
   end
 
   def show_search_results
-    @todos = Todo.search(params[:query]).records.order(due: :desc)
+    options = {
+      status: params[:status]
+    }
+    @todos = Todo.search(params[:query], options).records.order(due: :desc)
     @dates = @todos.select('DUE').group('DUE').page params[:page]
     render json: {
       update: {
