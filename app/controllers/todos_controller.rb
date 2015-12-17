@@ -1,5 +1,6 @@
 class TodosController < ApplicationController
   before_action :require_user
+  before_action :set_todo, only: [:update, :destroy, :copy_to_today]
 
   def index_today
     @todos = current_user.todos.where(due: current_user.today).order(:created_at)
@@ -11,10 +12,10 @@ class TodosController < ApplicationController
   end
 
   def index_previous_day
-    previous_day = current_user.previous_day
-    @todos = current_user.todos.where(due: previous_day).order(:created_at)
-    if current_user.summaries.where(date: previous_day).count != 0
-      @summary = current_user.summaries.where(date: previous_day).first
+    @previous_day = current_user.previous_day
+    @todos = current_user.todos.where(due: @previous_day).order(:created_at)
+    if current_user.summaries.where(date: @previous_day).count != 0
+      @summary = current_user.summaries.where(date: @previous_day).first
     else
       @summary = Summary.new
     end
@@ -35,20 +36,17 @@ class TodosController < ApplicationController
   end
 
   def destroy
-    todo = Todo.find(params[:id])
-    todo.destroy
+    @todo.destroy
     redirect_to :back
   end
 
   def update
-    @todo = Todo.find(params[:id])
     @todo.update_attribute(:status, params[:format])
     redirect_to :back
   end
 
   def copy_to_today
-    todo = Todo.find(params[:id])
-    todo.copy_to_today
+    @todo.copy_to_today
     redirect_to :back
   end
 
@@ -56,6 +54,10 @@ class TodosController < ApplicationController
 
   def todo_params
     params.require(:todo).permit(:title, :status, :due, :user_id)
+  end
+
+  def set_todo
+    @todo = Todo.find params[:id]
   end
 
   def show_histories

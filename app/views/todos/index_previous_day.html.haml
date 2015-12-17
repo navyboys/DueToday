@@ -1,39 +1,33 @@
 %h2.title
   Todos due
-  %span.date #{current_user.previous_day.strftime('%b')} #{current_user.previous_day.day.ordinalize}
+  %span.date #{@previous_day.strftime('%b')} #{@previous_day.day.ordinalize}
 #todo_items_wrapper
   - @todos.each do |todo|
     .row
       - if todo.completed?
         .icon_left
           = link_to todo_path(todo, 'failed'), method: :patch do
-            %i.glyphicon.glyphicon-check{:style => 'opacity: 0.6;', :title => 'Click to make it Fail'}
+            %i.glyphicon.glyphicon-check.completed{title: 'Click to make it Fail'}
         .todo_title
-          %p{:style => 'opacity: 0.6;'}
+          %p.completed
             %strike= todo.title
-        .icon_right
-          = link_to todo, method: :post do
-            %i.glyphicon.glyphicon-plus-sign{:style => 'opacity: 0.6;', :title => 'Copy to Today'}
+        = render 'copy_to_today_icon', todo: todo, completed: true
       - elsif todo.failed?
         .icon_left
           = link_to todo_path(todo, 'completed'), method: :patch do
-            %i.glyphicon.glyphicon-thumbs-down{:style => 'opacity: 0.6;', :title => 'Click to make it Done'}
+            %i.glyphicon.glyphicon-thumbs-down.completed{title: 'Click to make it Done'}
         .todo_title
-          %p{:style => 'opacity: 0.6;'}= todo.title
-        .icon_right
-          = link_to todo, method: :post do
-            %i.glyphicon.glyphicon-plus-sign{:style => 'opacity: 0.6;', :title => 'Copy to Today'}
+          %p.completed= todo.title
+        = render 'copy_to_today_icon', todo: todo, completed: false
       - else
         .icon_left
           = link_to todo_path(todo, 'completed'), method: :patch do
-            %i.glyphicon.glyphicon-unchecked{:title => 'Click to make it Done'}
+            %i.glyphicon.glyphicon-unchecked{title: 'Click to make it Done'}
         .todo_title
           %p= todo.title
-        .icon_right
-          = link_to todo, method: :post do
-            %i.glyphicon.glyphicon-plus-sign{:title => 'Copy to Today'}
+        = render 'copy_to_today_icon', todo: todo, completed: false
   #form
     = form_for(@summary) do |f|
       = f.text_area :description, placeholder: "You should retrospec the previous day first befroe you start today's work. Make all todos 'Done' or 'Fail' by clicking icons shown on the left and leave comments here. You may also copy the todo to today by clicking '+' icon shown on the right."
-      = f.hidden_field :date, value: current_user.previous_day
+      = f.hidden_field :date, value: @previous_day
       = f.submit 'Submit'

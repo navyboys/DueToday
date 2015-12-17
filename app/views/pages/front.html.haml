@@ -5,12 +5,12 @@
 #todo_items_wrapper
   .row
     .icon_left
-      %i.glyphicon.glyphicon-check{:style => 'opacity: 0.6;'}
+      %i.glyphicon.glyphicon-check.completed
     .todo_title
-      %p{:style => 'opacity: 0.6;'}
+      %p.completed
         %strike= '[Try DueToday] Visit Home Page'
     .icon_right
-      %i.glyphicon.glyphicon-trash{:style => 'opacity: 0.6;'}
+      %i.glyphicon.glyphicon-trash.completed
   .row
     .icon_left
       = link_to '' do
@@ -39,6 +39,6 @@
       = link_to '' do
         %i.glyphicon.glyphicon-trash
   #form
-    %a.btn.btn-default{:href => '/sign_up', :role => "button"} Sign Up Now!
+    %a.btn.btn-default{href: '/sign_up', role: 'button'} Sign Up Now!
 .links
-  = link_to "Sign In", sign_in_path
+  = link_to 'Sign In', sign_in_path

@@ -1,0 +1,6 @@
+.icon_right
+  = link_to todo, method: :post do
+    - if completed
+      %i.glyphicon.glyphicon-plus-sign.completed{title: 'Copy to Today'}
+    - else
+      %i.glyphicon.glyphicon-plus-sign{title: 'Copy to Today'}

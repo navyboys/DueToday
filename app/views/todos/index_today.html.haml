@@ -6,12 +6,12 @@
     .row
       - if todo.completed?
         .icon_left
-          %i.glyphicon.glyphicon-check{:style => 'opacity: 0.6;'}
+          %i.glyphicon.glyphicon-check.completed
         .todo_title
-          %p{:style => 'opacity: 0.6;'}
+          %p.completed
             %strike= todo.title
         .icon_right
-          %i.glyphicon.glyphicon-trash{:style => 'opacity: 0.6;'}
+          %i.glyphicon.glyphicon-trash.completed
       - else
         .icon_left
           = link_to todo_path(todo, 'completed'), method: :patch do
